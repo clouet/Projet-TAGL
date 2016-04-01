@@ -1,11 +1,13 @@
 package tagl;
 
-public class Gestion_cle_valeur {
+import java.util.ArrayList;
 
+public class Gestion_cle_valeur {
+	private ArrayList<Cle_valeur> list;
 	
-	public void set(String cle, String valeur){
+	public int set(String cle, String valeur){
 		
-		
+		return 0;
 	}
 	
 	public String get(String cle){
