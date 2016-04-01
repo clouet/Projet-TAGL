@@ -1,5 +1,5 @@
 <project>
-<modelVersion>0.1-SNAPSHOT</modelVersion>
+<modelVersion>4.0.0</modelVersion>
 <groupId>tagl</groupId>
 <artifactId>Projet-TAGL</artifactId>
 <version>0.1-SNAPSHOT</version>
