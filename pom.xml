@@ -1,1 +1,6 @@
-
+<project>
+<modelVersion>0.1-SNAPSHOT</modelVersion>
+<groupId>tagl</groupId>
+<artifactId>Projet-TAGL</artifactId>
+<version>0.1-SNAPSHOT</version>
+</project>
