@@ -241,11 +241,37 @@ public class Gestion_cle_valeur {
 	}
 	
 	
-	/*public int rename(String cle, String newname){
+	/**
+	 * Fonction permettant de renommer une clé enregistrée
+	 * @param cle la clé que l'on veut renommer
+	 * @param newname le nouveau nom pour la clé
+	 * @return 1 si le renommage à réussi, 0 sinon
+	 * @throws SameNameException si l'ancien nom et le nouveau nom de la clé sont identiques
+	 * @throws KeyNotExistsException si la clé n'existe pas
+	 */
+	public int rename(String cle, String newname) throws SameNameException, KeyNotExistsException {
 		int reussi = 0;
-		
+		if(!(cle == null || newname == null)){
+			if (cle.equals(newname)){
+				throw new SameNameException();
+			}
+			else{
+				if(cleExists(cle)){
+					if(cleExists(newname)){
+						int pos = posCle(newname);
+						list.remove(pos);
+					}
+					int pos = posCle(cle);
+					Cle_valeur tmp = list.get(pos);
+					tmp.setCle(newname);
+				}
+				else{
+				 throw new KeyNotExistsException();	
+				}				
+			}
+		}
 		return reussi;
-	}*/
+	}
 	
 	/**
 	 * Fonction permettant de vérifier si une clé à déja été enregistrée
