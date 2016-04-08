@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Gestion_cle_valeur {
 	private ArrayList<Cle_valeur> list;
+	private ArrayList<CleListValeur> listCleList;
+
 	
 	public Gestion_cle_valeur(){
 		if(list == null) list = new ArrayList<>();
@@ -105,7 +107,7 @@ public class Gestion_cle_valeur {
 	 * @param cle la clé dont on veut d'incrémenter la valeur
 	 * @return la nouvelle valeur associée à la clé, ou lève une erreur si la valeur associée à la clé n'est pas un entier
 	 */
-	public int incr(String cle) throws NumberFormatException{
+	public int incr(String cle) throws NumberFormatException, OverFlowException{
 		int reussi = 0;
 		if(!(cle == null)){
 			if(!cleExists(cle)){
@@ -119,6 +121,9 @@ public class Gestion_cle_valeur {
 				String valeur = cv.getValeur();
 				try{
 					int n = Integer.parseInt(valeur);
+					if( n == Integer.MAX_VALUE){
+						throw new OverFlowException();
+					}
 					n = n + 1;
 					cv.setValeur(String.valueOf(n));
 					reussi = n;
@@ -137,7 +142,7 @@ public class Gestion_cle_valeur {
 	 * @param i l'entier dont on veut augmenter la valeur associée à la clé
 	 * @return la nouvelle valeur associée à la clé, ou lève une erreur si la valeur associée à la clé n'est pas un entier
 	 */
-	public int incrBy(String cle, int i) throws NumberFormatException{
+	public int incrBy(String cle, int i) throws NumberFormatException, OverFlowException, UnderFlowException{
 		int reussi = 0;
 		if(!(cle == null)){
 			if(!cleExists(cle)){
@@ -151,6 +156,12 @@ public class Gestion_cle_valeur {
 				String valeur = cv.getValeur();
 				try{
 					int n = Integer.parseInt(valeur);
+					if(Integer.MAX_VALUE-n <= i){
+						throw new OverFlowException();
+					}
+					if(Integer.MIN_VALUE - i >= n){
+						throw new UnderFlowException();
+					}
 					n = n + i;
 					cv.setValeur(String.valueOf(n));
 					reussi = n;
@@ -169,7 +180,7 @@ public class Gestion_cle_valeur {
 	 * @param cle la clé dont on veut décrémenter la valeur
 	 * @return la nouvelle valeur associée à la clé, ou lève une erreur si la valeur associée à la clé n'est pas un entier
 	 */
-	public int decr(String cle) throws NumberFormatException{
+	public int decr(String cle) throws NumberFormatException, UnderFlowException{
 		int reussi = 0;
 		if(!(cle == null)){
 			if(!cleExists(cle)){
@@ -183,6 +194,9 @@ public class Gestion_cle_valeur {
 				String valeur = cv.getValeur();
 				try{
 					int n = Integer.parseInt(valeur);
+					if( n == Integer.MIN_VALUE){
+						throw new UnderFlowException();
+					}
 					n = n - 1;
 					cv.setValeur(String.valueOf(n));
 					reussi = n;
@@ -201,7 +215,7 @@ public class Gestion_cle_valeur {
 	 * @param i l'entier dont on veut diminuer la valeur associée à la clé
 	 * @return la nouvelle valeur associée à la clé, ou lève une erreur si la valeur associée à la clé n'est pas un entier
 	 */
-	public int decrBy(String cle, int i) throws NumberFormatException{
+	public int decrBy(String cle, int i) throws NumberFormatException, OverFlowException, UnderFlowException{
 		int reussi = 0;
 		if(!(cle == null)){
 			if(!cleExists(cle)){
@@ -216,6 +230,12 @@ public class Gestion_cle_valeur {
 				String valeur = cv.getValeur();
 				try{
 					int n = Integer.parseInt(valeur);
+					if(Integer.MAX_VALUE - n <= -i){
+						throw new OverFlowException();
+					}
+					if(n - Integer.MIN_VALUE <= i){
+						throw new UnderFlowException();
+					}
 					n = n - i;
 					cv.setValeur(String.valueOf(n));
 					reussi = n;
@@ -236,6 +256,9 @@ public class Gestion_cle_valeur {
 		int exist = 0;
 		if(!(cle == null)){
 			if(cleExists(cle)) exist = 1;
+		}
+		else{
+			
 		}
 		return exist;
 	}
@@ -264,6 +287,7 @@ public class Gestion_cle_valeur {
 					int pos = posCle(cle);
 					Cle_valeur tmp = list.get(pos);
 					tmp.setCle(newname);
+					reussi = 1;
 				}
 				else{
 				 throw new KeyNotExistsException();	
@@ -272,6 +296,45 @@ public class Gestion_cle_valeur {
 		}
 		return reussi;
 	}
+	
+	/**
+	 * Fonction permettant de renommer une clé enregistrée si le nouveau nom n'existe pas
+	 * @param cle la clé que l'on veut renommer
+	 * @param newname le nouveau nom pour la clé
+	 * @return 1 si le renommage à réussi, 0 sinon
+	 * @throws SameNameException si l'ancien nom et le nouveau nom de la clé sont identiques
+	 * @throws KeyNotExistsException si la clé n'existe pas
+	 */
+	public int renamenx(String cle, String newname) throws SameNameException, KeyNotExistsException {
+		int reussi = 0;
+		if(!(cle == null || newname == null)){
+			if (cle.equals(newname)){
+				throw new SameNameException();
+			}
+			else{
+				if(cleExists(cle)){
+					if(!cleExists(newname)){
+						int pos = posCle(cle);
+						Cle_valeur tmp = list.get(pos);
+						tmp.setCle(newname);
+						reussi = 1;
+					}
+				}
+				else{
+				 throw new KeyNotExistsException();	
+				}				
+			}
+		}
+		return reussi;
+	}
+	
+	
+	public int rpush(String cle, ArrayList<String> listVal){
+		int taille = 0;
+		
+		return taille;
+	}
+	
 	
 	/**
 	 * Fonction permettant de vérifier si une clé à déja été enregistrée
@@ -288,6 +351,23 @@ public class Gestion_cle_valeur {
 		}
 		return result;
 	}
+	
+	/**
+	 * Fonction permettant de vérifier si une clé à déja été enregistrée en tant que liste
+	 * @param c la clé que l'on veut vérifier l'enregistrement
+	 * @return true si la clé à déja été enregistrée, false sinon
+	 */
+	/*private Boolean cleListExists(String c){
+		Boolean result = false;
+		if(listCleList != null){
+			for(int i = 0; i < listCleList.size(); i++){
+				CleListValeur couple = listCleList.get(i);
+				if(couple.getCle().equals(c)) result = true;
+			}
+		}
+		return result;
+	}
+	*/
 	
 	/**
 	 * Fonction permettant de récupérer la position d'une clé dans la liste d'enregistrement
