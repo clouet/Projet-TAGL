@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Gestion_cle_valeur {
 	private ArrayList<Cle_valeur> list;
-	private ArrayList<CleListValeur> listCleList;
+	//private ArrayList<CleListValeur> listCleList;
 
 	
 	public Gestion_cle_valeur(){
