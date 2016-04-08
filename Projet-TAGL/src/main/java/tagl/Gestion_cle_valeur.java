@@ -16,7 +16,7 @@ public class Gestion_cle_valeur {
 	 * Si la clé existait avant, la valeur est mise à jour
 	 * @param cle le nom de la clé
 	 * @param valeur la valeur à associer à la clé
-	 * @return 1 si l'enregistrement à pu être fait, 0 sinon
+	 * @return 1 si l'enregistrement a pu être fait, 0 sinon
 	 */
 	public int set(String cle, String valeur){
 		int reussi = 0;
@@ -49,7 +49,7 @@ public class Gestion_cle_valeur {
 	 * La clé ne doit pas avoir déja été enregistrée.
 	 * @param cle le nom de la clé
 	 * @param valeur la valeur à associer à la clé
-	 * @return 1 si l'enregistrement à pu être fait, 0 sinon
+	 * @return 1 si l'enregistrement a pu être fait, 0 sinon
 	 */
 	public int setnx(String cle, String valeur){
 		int reussi = 0;
@@ -67,8 +67,9 @@ public class Gestion_cle_valeur {
 	
 	
 	/**
-	 * Fonction permettant de récupérer la valeur qui est associé à une clé
-	 * @param cle le nom de la clé dont on veut récupérer la valeur qui lui est associée
+	 * Fonction permettant de récupérer la valeur associée à une clé
+	 * La valeur doit être un String
+	 * @param cle le nom de la clé dont on veut récupérer la valeur associée
 	 * @return la valeur associée à la clé
 	 * @throws ValeurNotStringException si la valeur associée à la clé n'est pas une String
 	 */
@@ -92,7 +93,7 @@ public class Gestion_cle_valeur {
 	
 	/**
 	 * Fonction permettant d'enlever un couple (clé,valeur) de la liste
-	 * @param cle la clé dont on veut enlever l'enregistrement
+	 * @param cle la clé dont on veut enlever le couple
 	 * @return 1 si le couple à bien été enlevé, 0 sinon
 	 */
 	public int del(String cle){
@@ -111,7 +112,7 @@ public class Gestion_cle_valeur {
 	 * Fonction permettant d'incrémenter la valeur associée à une clé si cette valeur est un entier.
 	 * Si la clé n'exsiste pas, un nouveau couple (clé,valeur) est crée, avec comme valeur 1.
 	 * @param cle la clé dont on veut d'incrémenter la valeur
-	 * @return la nouvelle valeur associée à la clé, ou lève une erreur si la valeur associée à la clé n'est pas un entier
+	 * @return la nouvelle valeur associée à la clé
 	 * @throws NumberFormatException si la valeur associée à la clé n'est pas un entier acceptable
 	 * @throws OverFlowException si la valeur associée à la clé ne peut pas être augmentée de 1 sans franchir la valeur maximum pour Integer
 	 */
@@ -149,8 +150,8 @@ public class Gestion_cle_valeur {
 	 * Fonction permettant d'augmenter la valeur associée à une clé d'un certain entier, si cette valeur est un entier.
 	 * Si la clé n'exsiste pas, un nouveau couple (clé,valeur) est crée, avec comme valeur l'entier donné.
 	 * @param cle la clé dont on veut augmenter la valeur
-	 * @param i l'entier dont on veut augmenter la valeur associée à la clé
-	 * @return la nouvelle valeur associée à la clé, ou lève une erreur si la valeur associée à la clé n'est pas un entier
+	 * @param i l'entier duquel on veut augmenter la valeur associée à la clé
+	 * @return la nouvelle valeur associée à la clé
 	 * @throws NumberFormatException si la valeur associée à la clé n'est pas un entier acceptable
 	 * @throws OverFlowException si la valeur associée à la clé ne peut pas être augmentée de i sans franchir la valeur maximum pour Integer
 	 * @throws UnderFlowException si la valeur associée à la clé ne peut pas être augmentée de i (i étant négatif)
@@ -170,10 +171,10 @@ public class Gestion_cle_valeur {
 				String valeur = String.valueOf(cv.getValeur());
 				try{
 					int n = Integer.parseInt(valeur);
-					if(Integer.MAX_VALUE-n <= i){
+					if(n > 0 && Integer.MAX_VALUE-n <= i){
 						throw new OverFlowException();
 					}
-					if(i < 0 && Integer.MIN_VALUE - i >= n){
+					if(n < 0 && i < 0 && Integer.MIN_VALUE - i >= n){
 						throw new UnderFlowException();
 					}
 					n = n + i;
