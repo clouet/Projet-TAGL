@@ -70,14 +70,20 @@ public class Gestion_cle_valeur {
 	 * Fonction permettant de récupérer la valeur qui est associé à une clé
 	 * @param cle le nom de la clé dont on veut récupérer la valeur qui lui est associée
 	 * @return la valeur associée à la clé
+	 * @throws ValeurNotStringException si la valeur associée à la clé n'est pas une String
 	 */
-	public String get(String cle){
+	public String get(String cle) throws ValeurNotStringException{
 		String valeur = null;
 		if(!(cle == null)){
 			if(cleExists(cle)){
 				int pos = posCle(cle);
 				Cle_valeur tmp = list.get(pos);
-				valeur = tmp.getValeur();
+				if(tmp.getValeur() instanceof String){
+					valeur = String.valueOf(tmp.getValeur());
+				}
+				else{
+					throw new ValeurNotStringException();
+				}
 			}
 		}
 		return valeur;
@@ -106,6 +112,8 @@ public class Gestion_cle_valeur {
 	 * Si la clé n'exsiste pas, un nouveau couple (clé,valeur) est crée, avec comme valeur 1.
 	 * @param cle la clé dont on veut d'incrémenter la valeur
 	 * @return la nouvelle valeur associée à la clé, ou lève une erreur si la valeur associée à la clé n'est pas un entier
+	 * @throws NumberFormatException si la valeur associée à la clé n'est pas un entier acceptable
+	 * @throws OverFlowException si la valeur associée à la clé ne peut pas être augmentée de 1 sans franchir la valeur maximum pour Integer
 	 */
 	public int incr(String cle) throws NumberFormatException, OverFlowException{
 		int reussi = 0;
@@ -118,17 +126,19 @@ public class Gestion_cle_valeur {
 			else{
 				int pos = posCle(cle);
 				Cle_valeur cv = list.get(pos);
-				String valeur = cv.getValeur();
-				try{
-					int n = Integer.parseInt(valeur);
-					if( n == Integer.MAX_VALUE){
-						throw new OverFlowException();
-					}
-					n = n + 1;
-					cv.setValeur(String.valueOf(n));
-					reussi = n;
-				}catch(NumberFormatException n){
-					throw n;
+				if(cv.getValeur() instanceof String){
+					String valeur = String.valueOf(cv.getValeur());
+						try{
+							int n = Integer.parseInt(valeur);
+							if( n == Integer.MAX_VALUE){
+								throw new OverFlowException();
+							}
+							n = n + 1;
+							cv.setValeur(String.valueOf(n));
+							reussi = n;
+						}catch(NumberFormatException n){
+							throw n;
+						}
 				}
 			}
 		}
@@ -141,6 +151,9 @@ public class Gestion_cle_valeur {
 	 * @param cle la clé dont on veut augmenter la valeur
 	 * @param i l'entier dont on veut augmenter la valeur associée à la clé
 	 * @return la nouvelle valeur associée à la clé, ou lève une erreur si la valeur associée à la clé n'est pas un entier
+	 * @throws NumberFormatException si la valeur associée à la clé n'est pas un entier acceptable
+	 * @throws OverFlowException si la valeur associée à la clé ne peut pas être augmentée de i sans franchir la valeur maximum pour Integer
+	 * @throws UnderFlowException si la valeur associée à la clé ne peut pas être augmentée de i (i étant négatif)
 	 */
 	public int incrBy(String cle, int i) throws NumberFormatException, OverFlowException, UnderFlowException{
 		int reussi = 0;
@@ -153,13 +166,14 @@ public class Gestion_cle_valeur {
 			else{
 				int pos = posCle(cle);
 				Cle_valeur cv = list.get(pos);
-				String valeur = cv.getValeur();
+				if(cv.getValeur() instanceof String){
+				String valeur = String.valueOf(cv.getValeur());
 				try{
 					int n = Integer.parseInt(valeur);
 					if(Integer.MAX_VALUE-n <= i){
 						throw new OverFlowException();
 					}
-					if(Integer.MIN_VALUE - i >= n){
+					if(i < 0 && Integer.MIN_VALUE - i >= n){
 						throw new UnderFlowException();
 					}
 					n = n + i;
@@ -167,6 +181,7 @@ public class Gestion_cle_valeur {
 					reussi = n;
 				}catch(NumberFormatException n){
 					throw n;
+				}
 				}
 			}
 		}
@@ -191,17 +206,19 @@ public class Gestion_cle_valeur {
 			else{
 				int pos = posCle(cle);
 				Cle_valeur cv = list.get(pos);
-				String valeur = cv.getValeur();
-				try{
-					int n = Integer.parseInt(valeur);
-					if( n == Integer.MIN_VALUE){
-						throw new UnderFlowException();
+				if(cv.getValeur() instanceof String){
+					String valeur = String.valueOf(cv.getValeur());
+					try{
+						int n = Integer.parseInt(valeur);
+						if( n == Integer.MIN_VALUE){
+							throw new UnderFlowException();
+						}
+						n = n - 1;
+						cv.setValeur(String.valueOf(n));
+						reussi = n;
+					}catch(NumberFormatException n){
+						throw n;
 					}
-					n = n - 1;
-					cv.setValeur(String.valueOf(n));
-					reussi = n;
-				}catch(NumberFormatException n){
-					throw n;
 				}
 			}
 		}
@@ -217,7 +234,7 @@ public class Gestion_cle_valeur {
 	 */
 	public int decrBy(String cle, int i) throws NumberFormatException, OverFlowException, UnderFlowException{
 		int reussi = 0;
-		if(!(cle == null)){
+		/*if(!(cle == null)){
 			if(!cleExists(cle)){
 				String val = String.valueOf(-i);
 				Cle_valeur cv = new Cle_valeur(cle, val);
@@ -243,7 +260,10 @@ public class Gestion_cle_valeur {
 					throw n;
 				}
 			}
+			
 		}
+		*/
+		reussi = incrBy(cle, -i);
 		return reussi;
 	}
 	

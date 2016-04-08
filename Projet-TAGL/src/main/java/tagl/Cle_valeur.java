@@ -1,8 +1,8 @@
 package tagl;
 
-public class Cle_valeur {
+public class Cle_valeur<T> {
 	private String cle;
-	private String valeur;
+	private T valeur;
 	
 	
 	/**
@@ -10,7 +10,7 @@ public class Cle_valeur {
 	 * @param c le nom de la clé
 	 * @param v la valeur à associer à la clé
 	 */
-	public Cle_valeur(String c, String v){
+	public Cle_valeur(String c, T v){
 		cle = c;
 		valeur = v;
 	}
@@ -35,7 +35,7 @@ public class Cle_valeur {
 	 * Fonction permettant de récupérer la valeur qui est associé à la clé
 	 * @return
 	 */
-	public String getValeur() {
+	public T getValeur() {
 		return valeur;
 	}
 
@@ -43,7 +43,7 @@ public class Cle_valeur {
 	 * Fonction permettant de modifier la valeur qui est associée à la clé
 	 * @param valeur la nouvelle valeur
 	 */
-	public void setValeur(String valeur) {
+	public void setValeur(T valeur) {
 		this.valeur = valeur;
 	}
 	
