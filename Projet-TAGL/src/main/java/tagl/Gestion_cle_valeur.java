@@ -194,6 +194,8 @@ public class Gestion_cle_valeur {
 	 * Si la clé n'exsiste pas, un nouveau couple (clé,valeur) est crée, avec comme valeur -1.
 	 * @param cle la clé dont on veut décrémenter la valeur
 	 * @return la nouvelle valeur associée à la clé, ou lève une erreur si la valeur associée à la clé n'est pas un entier
+	 * @throws NumberFormatException si la valeur associée à la clé n'est pas un entier acceptable
+	 * @throws UnderFlowException si la valeur associée à la clé ne peut pas être augmentée de i (i étant négatif)
 	 */
 	public int decr(String cle) throws NumberFormatException, UnderFlowException{
 		int reussi = 0;
@@ -227,10 +229,13 @@ public class Gestion_cle_valeur {
 	
 	/**
 	 * Fonction permettant de diminuer la valeur associée à une clé  si cette valeur est un entier.
-	 * Si la clé n'exsiste pas, un nouveau couple (clé,valeur) est crée, avec comme valeur -1.
+	 * Si la clé n'exsiste pas, un nouveau couple (clé,valeur) est crée, avec comme valeur -i.
 	 * @param cle la clé dont on veut décrémenter la valeur
-	 * @param i l'entier dont on veut diminuer la valeur associée à la clé
+	 * @param i l'entier duquel on veut diminuer la valeur associée à la clé
 	 * @return la nouvelle valeur associée à la clé, ou lève une erreur si la valeur associée à la clé n'est pas un entier
+	 * @throws NumberFormatException si la valeur associée à la clé n'est pas un entier acceptable
+	 * @throws OverFlowException si la valeur associée à la clé ne peut pas être augmentée de i sans franchir la valeur maximum pour Integer
+	 * @throws UnderFlowException si la valeur associée à la clé ne peut pas être augmentée de i (i étant négatif)
 	 */
 	public int decrBy(String cle, int i) throws NumberFormatException, OverFlowException, UnderFlowException{
 		int reussi = 0;
