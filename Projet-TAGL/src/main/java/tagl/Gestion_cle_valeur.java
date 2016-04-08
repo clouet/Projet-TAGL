@@ -9,7 +9,6 @@ public class Gestion_cle_valeur {
 		if(list == null) list = new ArrayList<>();
 	}
 	
-	
 	/**
 	 * Fonction permettant d'enregistrer une clé associée à une valeur. 
 	 * Si la clé existait avant, la valeur est mise à jour
