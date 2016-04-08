@@ -18,23 +18,25 @@ public class Gestion_cle_valeur {
 	 */
 	public int set(String cle, String valeur){
 		int reussi = 0;
-		// si la clé à déjà été enregistrée avant
-		if(cleExists(cle)){
-			// on récupère sa position dans la liste
-			int pos = posCle(cle);
-			Cle_valeur tmp = list.get(pos);
-			// on modifie la valeur associée à cette clé dans la liste
-			tmp.setValeur(valeur);
-			// on met à jour la liste
-			list.set(pos, tmp);
-			reussi = 1;
-		}
-		// sinon
-		else{
-			// on crée un nouveau couple (clé, valeur) et on l'ajoute à la liste
-			Cle_valeur tmp = new Cle_valeur(cle, valeur);
-			list.add(tmp);
-			reussi = 1;
+		if(!(cle == null || valeur == null)){
+			// si la clé à déjà été enregistrée avant
+			if(cleExists(cle)){
+				// on récupère sa position dans la liste
+				int pos = posCle(cle);
+				Cle_valeur tmp = list.get(pos);
+				// on modifie la valeur associée à cette clé dans la liste
+				tmp.setValeur(valeur);
+				// on met à jour la liste
+				list.set(pos, tmp);
+				reussi = 1;
+			}
+			// sinon
+			else{
+				// on crée un nouveau couple (clé, valeur) et on l'ajoute à la liste
+				Cle_valeur tmp = new Cle_valeur(cle, valeur);
+				list.add(tmp);
+				reussi = 1;
+			}
 		}
 		return reussi;
 	}
@@ -49,12 +51,14 @@ public class Gestion_cle_valeur {
 	 */
 	public int setnx(String cle, String valeur){
 		int reussi = 0;
-		// si la clé à déjà été enregistrée avant
-		if(!cleExists(cle)){
-			// on crée un nouveau couple (clé, valeur) et on l'ajoute à la liste
-			Cle_valeur tmp = new Cle_valeur(cle, valeur);
-			list.add(tmp);
-			reussi = 1;
+		if(!(cle == null || valeur == null)){
+			// si la clé à déjà été enregistrée avant
+			if(!cleExists(cle)){
+				// on crée un nouveau couple (clé, valeur) et on l'ajoute à la liste
+				Cle_valeur tmp = new Cle_valeur(cle, valeur);
+				list.add(tmp);
+				reussi = 1;
+			}
 		}
 		return reussi;
 	}
@@ -67,10 +71,12 @@ public class Gestion_cle_valeur {
 	 */
 	public String get(String cle){
 		String valeur = null;
-		if(cleExists(cle)){
-			int pos = posCle(cle);
-			Cle_valeur tmp = list.get(pos);
-			valeur = tmp.getValeur();
+		if(!(cle == null)){
+			if(cleExists(cle)){
+				int pos = posCle(cle);
+				Cle_valeur tmp = list.get(pos);
+				valeur = tmp.getValeur();
+			}
 		}
 		return valeur;
 	}
@@ -83,10 +89,12 @@ public class Gestion_cle_valeur {
 	 */
 	public int del(String cle){
 		int reussi = 0;
-		if(cleExists(cle)){
-			int pos = posCle(cle);
-			list.remove(pos);
-			reussi = 1;
+		if(!(cle == null)){
+			if(cleExists(cle)){
+				int pos = posCle(cle);
+				list.remove(pos);
+				reussi = 1;
+			}
 		}
 		return reussi;
 	}
@@ -99,22 +107,24 @@ public class Gestion_cle_valeur {
 	 */
 	public int incr(String cle) throws NumberFormatException{
 		int reussi = 0;
-		if(!cleExists(cle)){
-			Cle_valeur cv = new Cle_valeur(cle, "1");
-			list.add(cv);
-			reussi = 1;
-		}
-		else{
-			int pos = posCle(cle);
-			Cle_valeur cv = list.get(pos);
-			String valeur = cv.getValeur();
-			try{
-				int n = Integer.parseInt(valeur);
-				n = n + 1;
-				cv.setValeur(String.valueOf(n));
-				reussi = n;
-			}catch(NumberFormatException n){
-				throw n;
+		if(!(cle == null)){
+			if(!cleExists(cle)){
+				Cle_valeur cv = new Cle_valeur(cle, "1");
+				list.add(cv);
+				reussi = 1;
+			}
+			else{
+				int pos = posCle(cle);
+				Cle_valeur cv = list.get(pos);
+				String valeur = cv.getValeur();
+				try{
+					int n = Integer.parseInt(valeur);
+					n = n + 1;
+					cv.setValeur(String.valueOf(n));
+					reussi = n;
+				}catch(NumberFormatException n){
+					throw n;
+				}
 			}
 		}
 		return reussi;
@@ -129,22 +139,24 @@ public class Gestion_cle_valeur {
 	 */
 	public int incrBy(String cle, int i) throws NumberFormatException{
 		int reussi = 0;
-		if(!cleExists(cle)){
-			Cle_valeur cv = new Cle_valeur(cle, String.valueOf(i));
-			list.add(cv);
-			reussi = i;
-		}
-		else{
-			int pos = posCle(cle);
-			Cle_valeur cv = list.get(pos);
-			String valeur = cv.getValeur();
-			try{
-				int n = Integer.parseInt(valeur);
-				n = n + i;
-				cv.setValeur(String.valueOf(n));
-				reussi = n;
-			}catch(NumberFormatException n){
-				throw n;
+		if(!(cle == null)){
+			if(!cleExists(cle)){
+				Cle_valeur cv = new Cle_valeur(cle, String.valueOf(i));
+				list.add(cv);
+				reussi = i;
+			}
+			else{
+				int pos = posCle(cle);
+				Cle_valeur cv = list.get(pos);
+				String valeur = cv.getValeur();
+				try{
+					int n = Integer.parseInt(valeur);
+					n = n + i;
+					cv.setValeur(String.valueOf(n));
+					reussi = n;
+				}catch(NumberFormatException n){
+					throw n;
+				}
 			}
 		}
 		return reussi;
@@ -159,22 +171,24 @@ public class Gestion_cle_valeur {
 	 */
 	public int decr(String cle) throws NumberFormatException{
 		int reussi = 0;
-		if(!cleExists(cle)){
-			Cle_valeur cv = new Cle_valeur(cle, "-1");
-			list.add(cv);
-			reussi = -1;
-		}
-		else{
-			int pos = posCle(cle);
-			Cle_valeur cv = list.get(pos);
-			String valeur = cv.getValeur();
-			try{
-				int n = Integer.parseInt(valeur);
-				n = n - 1;
-				cv.setValeur(String.valueOf(n));
-				reussi = n;
-			}catch(NumberFormatException n){
-				throw n;
+		if(!(cle == null)){
+			if(!cleExists(cle)){
+				Cle_valeur cv = new Cle_valeur(cle, "-1");
+				list.add(cv);
+				reussi = -1;
+			}
+			else{
+				int pos = posCle(cle);
+				Cle_valeur cv = list.get(pos);
+				String valeur = cv.getValeur();
+				try{
+					int n = Integer.parseInt(valeur);
+					n = n - 1;
+					cv.setValeur(String.valueOf(n));
+					reussi = n;
+				}catch(NumberFormatException n){
+					throw n;
+				}
 			}
 		}
 		return reussi;
@@ -189,23 +203,25 @@ public class Gestion_cle_valeur {
 	 */
 	public int decrBy(String cle, int i) throws NumberFormatException{
 		int reussi = 0;
-		if(!cleExists(cle)){
-			String val = String.valueOf(-i);
-			Cle_valeur cv = new Cle_valeur(cle, val);
-			list.add(cv);
-			reussi = -i;
-		}
-		else{
-			int pos = posCle(cle);
-			Cle_valeur cv = list.get(pos);
-			String valeur = cv.getValeur();
-			try{
-				int n = Integer.parseInt(valeur);
-				n = n - i;
-				cv.setValeur(String.valueOf(n));
-				reussi = n;
-			}catch(NumberFormatException n){
-				throw n;
+		if(!(cle == null)){
+			if(!cleExists(cle)){
+				String val = String.valueOf(-i);
+				Cle_valeur cv = new Cle_valeur(cle, val);
+				list.add(cv);
+				reussi = -i;
+			}
+			else{
+				int pos = posCle(cle);
+				Cle_valeur cv = list.get(pos);
+				String valeur = cv.getValeur();
+				try{
+					int n = Integer.parseInt(valeur);
+					n = n - i;
+					cv.setValeur(String.valueOf(n));
+					reussi = n;
+				}catch(NumberFormatException n){
+					throw n;
+				}
 			}
 		}
 		return reussi;
@@ -218,7 +234,9 @@ public class Gestion_cle_valeur {
 	 */
 	public int exists(String cle){
 		int exist = 0;
-		if(cleExists(cle)) exist = 1;
+		if(!(cle == null)){
+			if(cleExists(cle)) exist = 1;
+		}
 		return exist;
 	}
 	
