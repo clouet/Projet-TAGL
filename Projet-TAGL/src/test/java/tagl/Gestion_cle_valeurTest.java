@@ -486,7 +486,7 @@ public class Gestion_cle_valeurTest {
 	
 	@Test
 	public void testRpushxKeyNotExists() throws WrongTypeValueException{
-		assertEquals("testRpushxKeyNotExists", 0, gkey.rpushx("test", "value2"));
+		assertEquals("testRpushxKeyNotExists", 0, gkey.rpushx("carambar", "value2"));
 	}
 	
 	@Test
@@ -501,8 +501,9 @@ public class Gestion_cle_valeurTest {
 	public void testRpop() throws WrongTypeValueException{
 		ArrayList<String> list1 = new ArrayList<String>();
 		list1.add("value1");
+		list1.add("value2");
 		gkey.rpush("test", list1);
-		assertEquals("testRpop", "value1", gkey.rpop("test"));
+		assertEquals("testRpop", "value2", gkey.rpop("test"));
 	}
 	
 	@Test (expected = WrongTypeValueException.class)
@@ -511,8 +512,53 @@ public class Gestion_cle_valeurTest {
 		gkey.rpop("list1");
 	}
 	
+	@Test
+	public void testLpop() throws WrongTypeValueException {
+		ArrayList<String> list1 = new ArrayList<String>();
+		list1.add("value1");
+		list1.add("value2");
+		gkey.rpush("test", list1);
+		assertEquals("testLpop", "value1", gkey.lpop("test"));
+	}
 	
+	@Test
+	public void testLpopRemove() throws WrongTypeValueException {
+		ArrayList<String> list1 = new ArrayList<String>();
+		list1.add("value1");
+		list1.add("value2");
+		gkey.rpush("test", list1);
+		gkey.lpop("test");
+		assertEquals("testLpopRemove", "value2",gkey.lpop("test"));
+	}
 	
+	@Test
+	public void testRpopRemove() throws WrongTypeValueException {
+		ArrayList<String> list1 = new ArrayList<String>();
+		list1.add("value1");
+		list1.add("value2");
+		gkey.rpush("test", list1);
+		gkey.rpop("test");
+		assertEquals("testLpopRemove", "value1",gkey.rpop("test"));
+	}
+	
+	@Test
+	public void testRpopEmptyList() throws WrongTypeValueException{
+		ArrayList<String> list1 = new ArrayList<String>();
+		list1.add("value1");
+		gkey.rpush("test", list1);
+		gkey.rpop("test");
+		assertEquals("testRpopEmptuList", null, gkey.rpop("test"));
+	}
+	
+	@Test
+	public void testLpopEmptyList() throws WrongTypeValueException{
+		ArrayList<String> list1 = new ArrayList<String>();
+		list1.add("value1");
+		gkey.rpush("test", list1);
+		gkey.lpop("test");
+		assertEquals("testRpopEmptuList", null, gkey.lpop("test"));
+	
+	}
 	
 	
 	
