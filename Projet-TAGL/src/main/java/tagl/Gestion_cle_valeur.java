@@ -27,7 +27,8 @@ public class Gestion_cle_valeur {
 				// on modifie la valeur associée a cette clé dans la liste
 				tmp.setValeur(valeur);
 				// on met a jour la liste
-				list.set(pos, tmp);
+				list.remove(pos);
+				list.add(tmp);
 				reussi = 1;
 			}
 			// sinon
@@ -83,6 +84,8 @@ public class Gestion_cle_valeur {
 				else{
 					throw new WrongTypeValueException();
 				}
+				list.remove(pos);
+				list.add(tmp);
 			}
 		}
 		return valeur;
@@ -135,6 +138,8 @@ public class Gestion_cle_valeur {
 							n = n + 1;
 							cv.setValeur(String.valueOf(n));
 							reussi = n;
+							list.remove(pos);
+							list.add(cv);
 						}catch(NumberFormatException n){
 							throw n;
 						}
@@ -178,6 +183,8 @@ public class Gestion_cle_valeur {
 						n = n + i;
 						cv.setValeur(String.valueOf(n));
 						reussi = n;
+						list.remove(pos);
+						list.add(cv);
 					}catch(NumberFormatException n){
 						throw n;
 					}
@@ -217,6 +224,8 @@ public class Gestion_cle_valeur {
 						n = n - 1;
 						cv.setValeur(String.valueOf(n));
 						reussi = n;
+						list.remove(pos);
+						list.add(cv);
 					}catch(NumberFormatException n){
 						throw n;
 					}
@@ -279,7 +288,13 @@ public class Gestion_cle_valeur {
 	public int exists(String cle){
 		int exist = 0;
 		if(!(cle == null || cle.equals(""))){
-			if(cleExists(cle)) exist = 1;
+			if(cleExists(cle)){
+				exist = 1;
+				int pos = posCle(cle);
+				Cle_valeur tmp = list.get(pos);
+				list.remove(pos);
+				list.add(tmp);
+			}
 		}
 		return exist;
 	}
@@ -309,6 +324,8 @@ public class Gestion_cle_valeur {
 					Cle_valeur tmp = list.get(pos);
 					tmp.setCle(newname);
 					reussi = 1;
+					list.remove(pos);
+					list.add(tmp);
 				}
 				else{
 				 throw new KeyNotExistsException();	
@@ -339,6 +356,8 @@ public class Gestion_cle_valeur {
 						Cle_valeur tmp = list.get(pos);
 						tmp.setCle(newname);
 						reussi = 1;
+						list.remove(pos);
+						list.add(tmp);
 					}
 				}
 				else{
@@ -371,6 +390,9 @@ public class Gestion_cle_valeur {
 						tmp.add(val);
 					}
 					taille = tmp.size();
+					Cle_valeur cv = list.get(pos);
+					list.remove(pos);
+					list.add(cv);
 				}
 				else{
 					throw new WrongTypeValueException();
@@ -403,6 +425,9 @@ public class Gestion_cle_valeur {
 					ArrayList<String> tmp = (ArrayList) list.get(pos).getValeur();
 					tmp.add(val);
 					taille = tmp.size();
+					Cle_valeur cv = list.get(pos);
+					list.remove(pos);
+					list.add(cv);
 				}
 				else{
 					throw new WrongTypeValueException();
@@ -436,6 +461,9 @@ public class Gestion_cle_valeur {
 					}
 					list.get(pos).setValeur(listVal);
 					taille = listVal.size();
+					Cle_valeur cv = list.get(pos);
+					list.remove(pos);
+					list.add(cv);
 				}
 				else{
 					throw new WrongTypeValueException();
@@ -469,6 +497,9 @@ public class Gestion_cle_valeur {
 					ArrayList<String> tmp = (ArrayList) list.get(pos).getValeur();
 					tmp.add(0, val);
 					taille = tmp.size();
+					Cle_valeur cv = list.get(pos);
+					list.remove(pos);
+					list.add(cv);
 				}
 				else{
 					throw new WrongTypeValueException();
@@ -495,6 +526,9 @@ public class Gestion_cle_valeur {
 				if(list.get(pos).getValeur() instanceof ArrayList){
 					ArrayList<String> liste_valeur = (ArrayList) list.get(pos).getValeur();
 					premier_element = liste_valeur.remove(0);
+					Cle_valeur cv = list.get(pos);
+					list.remove(pos);
+					list.add(cv);
 				}
 				else{
 					throw new WrongTypeValueException();
@@ -520,6 +554,9 @@ public class Gestion_cle_valeur {
 				if(list.get(pos).getValeur() instanceof ArrayList){
 					ArrayList<String> liste_valeur = (ArrayList) list.get(pos).getValeur();
 					premier_element = liste_valeur.remove(liste_valeur.size()-1);
+					Cle_valeur cv = list.get(pos);
+					list.remove(pos);
+					list.add(cv);
 				}
 				else{
 					throw new WrongTypeValueException();
