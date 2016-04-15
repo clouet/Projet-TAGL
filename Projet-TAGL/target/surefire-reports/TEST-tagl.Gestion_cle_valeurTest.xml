@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.045" errors="0" skipped="0" tests="10" name="tagl.Gestion_cle_valeurTest">
+<testsuite failures="0" time="0.1" errors="0" skipped="0" tests="59" name="tagl.Gestion_cle_valeurTest">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64"/>
@@ -14,7 +14,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="unknown"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/home/c/canonnea/git/Projet-TAGL/Projet-TAGL"/>
+    <property name="user.dir" value="/home/c/canonnea/git/Projet-TAGL"/>
     <property name="java.runtime.version" value="1.7.0_79-b14"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/endorsed"/>
@@ -58,14 +58,63 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.003" classname="tagl.Gestion_cle_valeurTest" name="testSetEmptyKey"/>
+  <testcase time="0.005" classname="tagl.Gestion_cle_valeurTest" name="testDelReturnValueNormal"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testDelReturnValueNotSet"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testDecrSetIntMax"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testIncrSetWitNan"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testSetEmptyKey"/>
   <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testSetEmptyVal"/>
+  <testcase time="0.001" classname="tagl.Gestion_cle_valeurTest" name="testGetEmptyKey"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testGetSetnx"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testGetUnset"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testDecrSetWitNan"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testIncrHugeNegNumber"/>
   <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testAlreadySet"/>
+  <testcase time="0.001" classname="tagl.Gestion_cle_valeurTest" name="testIncrHugeNumber"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testDecrByNotSet"/>
+  <testcase time="0.004" classname="tagl.Gestion_cle_valeurTest" name="testIncrByNeg"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testIncrBySet"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testDecrBySetNeg"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testSetnxEmptyKey"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testSetnxEmptyVal"/>
+  <testcase time="0.001" classname="tagl.Gestion_cle_valeurTest" name="testDecrBySetIntMax2"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testIncrByHugeNegNumber"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testIncrBySetIntMax"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testDecrByHugeNumber"/>
+  <testcase time="0.001" classname="tagl.Gestion_cle_valeurTest" name="testDecrByHugeNegNumber"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testIncrBy0Set"/>
+  <testcase time="0.001" classname="tagl.Gestion_cle_valeurTest" name="testIncrBy1Set"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testDecrBy0Set"/>
+  <testcase time="0.002" classname="tagl.Gestion_cle_valeurTest" name="testDecrBy1Set"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testSetnxAlreadySet"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testDecrHugeNumber"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testIncrBySetWitNan"/>
+  <testcase time="0.001" classname="tagl.Gestion_cle_valeurTest" name="testIncrNotSet"/>
+  <testcase time="0.009" classname="tagl.Gestion_cle_valeurTest" name="testDecrNotSet"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testIncrSetNeg"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testDecrSetNeg"/>
   <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testSetNullKey"/>
   <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testSetNullVal"/>
-  <testcase time="0.001" classname="tagl.Gestion_cle_valeurTest" name="testGetBadKey"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testDecrHugeNegNumber"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testIncrByNotSet"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testDecrBySetIntMax"/>
+  <testcase time="0.001" classname="tagl.Gestion_cle_valeurTest" name="testGetnullKey"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testGetBadKey"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testsetnxnoSet"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testIncrBySetNeg"/>
   <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testGetChanged"/>
-  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testGetUnsetted"/>
-  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testGetSetted"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testDecrSet"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testDecrByNeg"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testDecrBySet"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testDecrBySetWitNan"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testGetSet"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testIncrSet"/>
   <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testNewSet"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testIncrBySetIntMax2"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testGetChangedSetnx"/>
+  <testcase time="0.004" classname="tagl.Gestion_cle_valeurTest" name="testGetDeleted"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testSetnxNullKey"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testSetnxNullVal"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testIncrSetIntMax"/>
+  <testcase time="0" classname="tagl.Gestion_cle_valeurTest" name="testIncrByHugeNumber"/>
 </testsuite>

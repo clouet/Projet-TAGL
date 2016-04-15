@@ -361,12 +361,48 @@ public class Gestion_cle_valeurTest {
 		gkey.decrBy("test",12);
 	}
 	
+	@Test
+	public void testExist(){	
+		gkey.set("test", "valeur");
+		assertEquals("test setnullkey", 1, gkey.exists("test"));
+	}
+	@Test
+	public void testNoExist(){	
+		assertEquals("test setnullkey", 0, gkey.exists("test"));
+	}
+	
+	@Test
+	public void testExisted(){	
+		gkey.set("test", "valeur");
+		gkey.del("test");
+		assertEquals("test setnullkey", 0, gkey.exists("test"));
+	}
+	
+	@Test
+	public void testExistVal(){	
+		gkey.set("test", "valeur");
+		assertEquals("test setnullkey", 0, gkey.exists("valeur"));
+	}
 	
 	
+	@Test (expected = KeyNotExistsException.class)
+	public void testRenamenotset() throws SameNameException, KeyNotExistsException{	
+		gkey.rename("test", "valeur");
+	}
 	
+	@Test 
+	public void testRename() throws SameNameException, KeyNotExistsException{	
+		gkey.set("test", "valeur");
+		assertEquals("test testRename", 1, gkey.rename("test", "newname"));
+	}
 	
-	
-	
+/*	@Test 
+	public void testRenamenewnameused() throws SameNameException, KeyNotExistsException{	
+		gkey.set("test", "valeur");
+		gkey.set("newname", "valeur");
+		assertEquals("test testRename", 0, gkey.rename("test", "newname"));
+	}
+*/	
 	
 	
 	
