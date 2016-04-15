@@ -14,11 +14,7 @@ public class Gestion_cle_valeur {
 	 * Si la clé existait avant, la valeur est mise à jour
 	 * @param cle le nom de la clé
 	 * @param valeur la valeur à associer à la clé
-<<<<<<< HEAD
-	 * @return 1 si l'enregistrement à pu ﾃｪtre fait, 0 sinon
-=======
 	 * @return 1 si l'enregistrement a pu être fait, 0 sinon
->>>>>>> branch 'master' of https://github.com/clouet/Projet-TAGL
 	 */
 	public int set(String cle, String valeur){
 		int reussi = 0;
@@ -361,7 +357,7 @@ public class Gestion_cle_valeur {
 	 * @param cle la clé à qui ont veut associer les valeurs
 	 * @param listVal l'ensemble des valeurs que l'on veut associer à la clé
 	 * @return la taille de la liste associée à la clé
-	 * @throws WrongTypeValueException si la clé existait est n'était pas associée à une liste
+	 * @throws WrongTypeValueException si la clé existait et n'était pas associée à une liste
 	 */
 	public int rpush(String cle, ArrayList<String> listVal)throws WrongTypeValueException{
 		int taille = -1;
@@ -392,33 +388,25 @@ public class Gestion_cle_valeur {
 	
 	/**
 	 * Fonction permettant d'ajouter une valeur à la droite (fin) de la liste associée à une clé.
-	 * La clé doit exister
+	 * La clé doit exister.
 	 * @param cle la clé à qui ont veut associer la valeur
-	 * @param listVal l'ensemble des valeurs que l'on veut associer à la clé
-	 * @return la taille de la liste associée à la clé
-	 * @throws WrongTypeValueException si la clé existait est n'était pas associée à une liste
+	 * @param val la valeur que l'on veut associer à la clé
+	 * @return la taille de la liste associée à la clé, 0 si la clé n'existait pas
+	 * @throws WrongTypeValueException si la clé n'était pas associée à une liste
 	 */
-	public int rpushx(String cle, ArrayList<String> listVal)throws WrongTypeValueException{
+	public int rpushx(String cle, String val)throws WrongTypeValueException{
 		int taille = -1;
-		if(cle != null && listVal != null){
+		if(cle != null && val != null){
 			if(cleExists(cle)){
 				int pos = posCle(cle);
 				if(list.get(pos).getValeur() instanceof ArrayList){
 					ArrayList<String> tmp = (ArrayList) list.get(pos).getValeur();
-					for(int i = 0; i < listVal.size(); i++ ){
-						String val = listVal.get(i);
-						tmp.add(val);
-					}
+					tmp.add(val);
 					taille = tmp.size();
 				}
 				else{
 					throw new WrongTypeValueException();
 				}
-			}
-			else{
-				Cle_valeur<ArrayList<String>> couple = new Cle_valeur<ArrayList<String>>(cle, listVal);
-				list.add(couple);
-				taille = listVal.size(); 
 			}
 		}
 		return taille;
@@ -433,7 +421,7 @@ public class Gestion_cle_valeur {
 	 * @param cle la clé à qui ont veut associer les valeurs
 	 * @param listVal l'ensemble des valeurs que l'on veut associer à la clé
 	 * @return la taille de la liste associée à la clé
-	 * @throws WrongTypeValueException si la clé existait est n'était pas associée à une liste
+	 * @throws WrongTypeValueException si la clé existait et n'était pas associée à une liste
 	 */
 	public int lpush(String cle, ArrayList<String> listVal)throws WrongTypeValueException{
 		int taille = -1;
@@ -442,11 +430,12 @@ public class Gestion_cle_valeur {
 				int pos = posCle(cle);
 				if(list.get(pos).getValeur() instanceof ArrayList){
 					ArrayList<String> tmp = (ArrayList) list.get(pos).getValeur();
-					for(int i = 0; i < listVal.size(); i++ ){
-						String val = listVal.get(i);
-						tmp.add(0,val);
+					for(int i = 0; i < tmp.size(); i++ ){
+						String val = tmp.get(i);
+						listVal.add(val);
 					}
-					taille = tmp.size();
+					list.get(pos).setValeur(listVal);
+					taille = listVal.size();
 				}
 				else{
 					throw new WrongTypeValueException();
