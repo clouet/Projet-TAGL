@@ -391,7 +391,7 @@ public class Gestion_cle_valeurTest {
 	public void testRenameNewNameUsed() throws SameNameException, KeyNotExistsException{	
 		gkey.set("test", "valeur");
 		gkey.set("newname", "valeur");
-		assertEquals("test testRename", 0, gkey.rename("test", "newname"));
+		assertEquals("test testRename", 1, gkey.rename("test", "newname"));
 	}
 
 	
@@ -415,6 +415,45 @@ public class Gestion_cle_valeurTest {
 		gkey.renamenx("test", "newname");
 		assertEquals("testRenamenx", "valeur1", gkey.get("newname"));
 	}
+	
+	@Test
+	public void testRenamenxNewNameExists() throws SameNameException, KeyNotExistsException{
+		gkey.set("test", "valeur");
+		gkey.set("new", "valeur2");
+		assertEquals("testRenamenxNewNameExists", 0, gkey.renamenx("test", "new"));
+	}
+	
+	@Test (expected = SameNameException.class)
+	public void testRenamenxSameNameException() throws SameNameException, KeyNotExistsException{
+		gkey.set("test", "valeur");
+		gkey.renamenx("test", "test");
+	
+	}
+	
+	@Test (expected = KeyNotExistsException.class)
+	public void testRenamenxKeyNotExistsException() throws SameNameException, KeyNotExistsException{
+		gkey.renamenx("alpha", "beta");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
