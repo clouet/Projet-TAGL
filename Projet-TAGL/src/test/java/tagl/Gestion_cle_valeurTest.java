@@ -498,6 +498,31 @@ public class Gestion_cle_valeurTest {
 	}
 	
 	@Test
+	public void testLpushxKeyNotExists() throws WrongTypeValueException{
+		assertEquals("testLpushxKeyNotExists",0,gkey.lpushx("carambar", "value1"));
+	}
+	
+	@Test
+	public void testLpushxKeyExists() throws WrongTypeValueException{
+		ArrayList<String> list1 = new ArrayList<String>();
+		list1.add("value1");
+		gkey.rpush("test", list1);
+		assertEquals("testLpushxKeyExists", 2, gkey.lpushx("test","value2"));
+	}
+	
+	@Test (expected = WrongTypeValueException.class)
+	public void testLpushxWrongTypeValue() throws WrongTypeValueException{
+		gkey.set("test", "valeur1");
+		gkey.lpushx("test", "val");
+	}
+	
+	@Test (expected = WrongTypeValueException.class)
+	public void testRpushxWrongTypeValue() throws WrongTypeValueException{
+		gkey.set("test", "valeur1");
+		gkey.rpushx("test", "val");
+	}
+	
+	@Test
 	public void testRpop() throws WrongTypeValueException{
 		ArrayList<String> list1 = new ArrayList<String>();
 		list1.add("value1");
@@ -561,14 +586,95 @@ public class Gestion_cle_valeurTest {
 	}
 	
 	
+	//Tests pour la gestion de la mémoire limitée
 	
+	@Test
+	public void testTailleMax() throws WrongTypeValueException{
+		gkey.set("a", "valeur");
+		for(int i = 0; i <= Gestion_cle_valeur.TAILLE_MAX; i++){
+			gkey.set(String.valueOf(i), "aaaa");
+		}
+		assertEquals("testTailleMax", null, gkey.get("a"));
+	}
 	
+	@Test
+	public void testTailleMaxSameKey() throws WrongTypeValueException{
+		gkey.set("a", "valeur");
+		for(int i = 0; i <= Gestion_cle_valeur.TAILLE_MAX; i++){
+			gkey.set("b", "aaaa");
+		}
+		assertEquals("testTailleMaxSameKey", "valeur", gkey.get("a"));
+	}
 	
+	@Test
+	public void testTailleMaxRefreshAgeGet() throws WrongTypeValueException{
+		gkey.set("a", "valeur");
+		for(int i = 0; i <= Gestion_cle_valeur.TAILLE_MAX; i++){
+			gkey.set(String.valueOf(i), "aaaa");
+			gkey.get("a");
+		}
+		assertEquals("testTailleMax", "valeur", gkey.get("a"));
+	}
 	
+	@Test
+	public void testTailleMaxRefreshAgeSet() throws WrongTypeValueException{
+		gkey.set("a", "valeur");
+		for(int i = 0; i <= Gestion_cle_valeur.TAILLE_MAX; i++){
+			gkey.set(String.valueOf(i), "aaaa");
+			gkey.set("a", "valeur2");
+		}
+		assertEquals("testTailleMax", "valeur2", gkey.get("a"));
+	}
 	
+	@Test
+	public void testTailleMaxRefreshAgeIncr() throws WrongTypeValueException, NumberFormatException, OverFlowException{
+		gkey.set("a", "1");
+		for(int i = 0; i <= Gestion_cle_valeur.TAILLE_MAX; i++){
+			gkey.set(String.valueOf(i), "aaaa");
+			gkey.incr("a");
+		}
+		assertEquals("testTailleMax", String.valueOf(2+Gestion_cle_valeur.TAILLE_MAX), gkey.get("a"));
+	}
 	
+	@Test
+	public void testTailleMaxRefreshAgeDecr() throws WrongTypeValueException, NumberFormatException, UnderFlowException{
+		gkey.set("a", "1");
+		for(int i = 0; i <= Gestion_cle_valeur.TAILLE_MAX; i++){
+			gkey.set(String.valueOf(i), "aaaa");
+			gkey.decr("a");
+		}
+		assertEquals("testTailleMax", String.valueOf(-Gestion_cle_valeur.TAILLE_MAX), gkey.get("a"));
+	}
 	
+	@Test
+	public void testTailleMaxRefreshAgeRename() throws WrongTypeValueException, SameNameException, KeyNotExistsException{
+		gkey.set("-1", "valeur");
+		int i = 0;
+		for(i = 0; i <= Gestion_cle_valeur.TAILLE_MAX; i++){
+			gkey.set("b", "aaaa");
+			gkey.rename(String.valueOf(i-1), String.valueOf(i));
+		}
+		assertEquals("testTailleMax", String.valueOf("valeur"), gkey.get(String.valueOf(i-1)));
+	}
 	
+	@Test
+	public void testTailleMaxRefreshAgeIncrBy() throws WrongTypeValueException, NumberFormatException, OverFlowException, UnderFlowException{
+		gkey.set("a", "1");
+		for(int i = 0; i <= Gestion_cle_valeur.TAILLE_MAX; i++){
+			gkey.set(String.valueOf(i), "aaaa");
+			gkey.incrBy("a",1);
+		}
+		assertEquals("testTailleMax", String.valueOf(2+Gestion_cle_valeur.TAILLE_MAX), gkey.get("a"));
+	}
 	
-	
+	@Test
+	public void testTailleMaxRefreshAgeDecrBy() throws WrongTypeValueException, NumberFormatException, UnderFlowException, OverFlowException{
+		gkey.set("a", "1");
+		for(int i = 0; i <= Gestion_cle_valeur.TAILLE_MAX; i++){
+			gkey.set(String.valueOf(i), "aaaa");
+			gkey.decrBy("a",1);
+		}
+		assertEquals("testTailleMax", String.valueOf(-Gestion_cle_valeur.TAILLE_MAX), gkey.get("a"));
+	}
+
 }
