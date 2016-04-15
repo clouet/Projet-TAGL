@@ -585,6 +585,15 @@ public class Gestion_cle_valeurTest {
 	
 	}
 	
+	@Test
+	public void testRenameList() throws WrongTypeValueException, SameNameException, KeyNotExistsException{
+		ArrayList<String> list1 = new ArrayList<String>();
+		list1.add("value1");
+		gkey.rpush("test", list1);
+		gkey.rename("test", "newname");
+		assertEquals("testRenameList","value1", gkey.rpop("newname"));
+	}
+	
 	
 	//Tests pour la gestion de la mémoire limitée
 	
@@ -675,6 +684,18 @@ public class Gestion_cle_valeurTest {
 			gkey.decrBy("a",1);
 		}
 		assertEquals("testTailleMax", String.valueOf(-Gestion_cle_valeur.TAILLE_MAX), gkey.get("a"));
+	}
+	
+	@Test
+	public void testTailleMaxList() throws WrongTypeValueException{
+		ArrayList<String> list1 = new ArrayList<String>();
+		list1.add("value1");
+		list1.add("value2");
+		gkey.rpush("test", list1);
+		for(int i = 0; i <= Gestion_cle_valeur.TAILLE_MAX; i++){
+			gkey.set(String.valueOf(i), "aaaa");
+		}
+		assertEquals("testTailleMaxList", null, gkey.rpop("test"));
 	}
 
 }
