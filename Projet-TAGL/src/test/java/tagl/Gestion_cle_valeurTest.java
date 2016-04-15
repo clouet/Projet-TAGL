@@ -410,6 +410,7 @@ public class Gestion_cle_valeurTest {
 	}
 	
 	
+
 	@Test
 	public void testRenamenx() throws SameNameException, KeyNotExistsException, WrongTypeValueException{
 		gkey.set("test", "valeur1");
