@@ -455,15 +455,17 @@ public class Gestion_cle_valeur {
 				int pos = posCle(cle);
 				if(list.get(pos).getValeur() instanceof ArrayList){
 					ArrayList<String> tmp = (ArrayList) list.get(pos).getValeur();
-					for(int i = 0; i < tmp.size(); i++ ){
-						String val = tmp.get(i);
-						listVal.add(val);
+					if(tmp != null){
+						for(int i = 0; i < tmp.size(); i++ ){
+							String val = tmp.get(i);
+							listVal.add(val);
+						}
+						list.get(pos).setValeur(listVal);
+						taille = listVal.size();
+						Cle_valeur cv = list.get(pos);
+						list.remove(pos);
+						list.add(cv);
 					}
-					list.get(pos).setValeur(listVal);
-					taille = listVal.size();
-					Cle_valeur cv = list.get(pos);
-					list.remove(pos);
-					list.add(cv);
 				}
 				else{
 					throw new WrongTypeValueException();
@@ -495,11 +497,13 @@ public class Gestion_cle_valeur {
 				int pos = posCle(cle);
 				if(list.get(pos).getValeur() instanceof ArrayList){
 					ArrayList<String> tmp = (ArrayList) list.get(pos).getValeur();
-					tmp.add(0, val);
-					taille = tmp.size();
-					Cle_valeur cv = list.get(pos);
-					list.remove(pos);
-					list.add(cv);
+					if(tmp != null){
+						tmp.add(0, val);
+						taille = tmp.size();
+						Cle_valeur cv = list.get(pos);
+						list.remove(pos);
+						list.add(cv);
+					}
 				}
 				else{
 					throw new WrongTypeValueException();
@@ -514,6 +518,7 @@ public class Gestion_cle_valeur {
 	 * Fonction permettant de retirer et de récupérer le premier élément d'une liste de valeur qui était associée a une clé
 	 * Si la clé existe elle doit être associée a une liste.
 	 * Si la clé n'existe pas la fonction retourne null 
+	 * Si il n'y a pas d'élément dans la liste associée à la clé, la fonction retourne null
 	 * @param cle la clé qui est associé a la liste dont on veut récupérer, et retirer, le premier élément
 	 * @return le premier élément de la liste associé a la clé
 	 * @throws WrongTypeValueException si la clé n'est n'est pas associé a une liste de valeur
@@ -525,10 +530,12 @@ public class Gestion_cle_valeur {
 				int pos = posCle(cle);
 				if(list.get(pos).getValeur() instanceof ArrayList){
 					ArrayList<String> liste_valeur = (ArrayList) list.get(pos).getValeur();
-					premier_element = liste_valeur.remove(0);
-					Cle_valeur cv = list.get(pos);
-					list.remove(pos);
-					list.add(cv);
+					if(liste_valeur != null && liste_valeur.size() != 0){
+						premier_element = liste_valeur.remove(0);
+						Cle_valeur cv = list.get(pos);
+						list.remove(pos);
+						list.add(cv);
+					}
 				}
 				else{
 					throw new WrongTypeValueException();
@@ -542,6 +549,7 @@ public class Gestion_cle_valeur {
 	 * Fonction permettant de retirer et de récupérer le dernier élément d'une liste de valeur qui était associée a une clé
 	 * Si la clé existe elle doit être associée a une liste.
 	 * Si la clé n'existe pas la fonction retourne null 
+	 * Si il n'y a pas d'élément dans la liste associée à la clé, la fonction retourne null
 	 * @param cle la clé qui est associé a la liste dont on veut récupérer, et retirer, le dernier élément
 	 * @return le dernier élément de la liste associé a la clé
 	 * @throws WrongTypeValueException si la clé n'est n'est pas associé a une liste de valeur
@@ -553,10 +561,12 @@ public class Gestion_cle_valeur {
 				int pos = posCle(cle);
 				if(list.get(pos).getValeur() instanceof ArrayList){
 					ArrayList<String> liste_valeur = (ArrayList) list.get(pos).getValeur();
-					premier_element = liste_valeur.remove(liste_valeur.size()-1);
-					Cle_valeur cv = list.get(pos);
-					list.remove(pos);
-					list.add(cv);
+					if(liste_valeur != null && liste_valeur.size() != 0){
+						premier_element = liste_valeur.remove(liste_valeur.size()-1);
+						Cle_valeur cv = list.get(pos);
+						list.remove(pos);
+						list.add(cv);
+					}
 				}
 				else{
 					throw new WrongTypeValueException();
