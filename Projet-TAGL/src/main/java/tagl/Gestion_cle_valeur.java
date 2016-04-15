@@ -6,7 +6,7 @@ public class Gestion_cle_valeur {
 	/**
 	 * La liste de clé_valeur ne peut contenir que 10 entrées
 	 */
-	public final int TAILLE_MAX = 10;
+	public static final int TAILLE_MAX = 10;
 	private ArrayList<Cle_valeur> list;
 	
 	public Gestion_cle_valeur(){
