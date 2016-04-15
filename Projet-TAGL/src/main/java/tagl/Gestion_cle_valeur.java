@@ -18,7 +18,7 @@ public class Gestion_cle_valeur {
 	 */
 	public int set(String cle, String valeur){
 		int reussi = 0;
-		if(!(cle == null || valeur == null)){
+		if(!(cle == null || valeur == null || cle.equals(""))){
 			// si la clé a déja été enregistrée avant
 			if(cleExists(cle)){
 				// on récupère sa position dans la liste
