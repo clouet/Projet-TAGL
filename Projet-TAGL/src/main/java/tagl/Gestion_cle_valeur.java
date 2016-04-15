@@ -3,6 +3,7 @@ package tagl;
 import java.util.ArrayList;
 
 public class Gestion_cle_valeur {
+	private final int TAILLE_MAX = 10;
 	private ArrayList<Cle_valeur> list;
 	
 	public Gestion_cle_valeur(){
@@ -33,6 +34,9 @@ public class Gestion_cle_valeur {
 			}
 			// sinon
 			else{
+				if(list.size() == TAILLE_MAX){
+					list.remove(0);
+				}
 				// on crée un nouveau couple (clé, valeur) et on l'ajoute a la liste
 				Cle_valeur tmp = new Cle_valeur(cle, valeur);
 				list.add(tmp);
@@ -55,6 +59,9 @@ public class Gestion_cle_valeur {
 		if(!(cle == null || valeur == null || cle.equals(""))){
 			// si la clé a déja été enregistrée avant
 			if(!cleExists(cle)){
+				if(list.size() == TAILLE_MAX){
+					list.remove(0);
+				}
 				// on crée un nouveau couple (clé, valeur) et on l'ajoute a la liste
 				Cle_valeur tmp = new Cle_valeur(cle, valeur);
 				list.add(tmp);
@@ -399,6 +406,9 @@ public class Gestion_cle_valeur {
 				}
 			}
 			else{
+				if(list.size() == TAILLE_MAX){
+					list.remove(0);
+				}
 				Cle_valeur<ArrayList<String>> couple = new Cle_valeur<ArrayList<String>>(cle, listVal);
 				list.add(couple);
 				taille = listVal.size(); 
@@ -472,6 +482,9 @@ public class Gestion_cle_valeur {
 				}
 			}
 			else{
+				if(list.size() == TAILLE_MAX){
+					list.remove(0);
+				}
 				Cle_valeur<ArrayList<String>> couple = new Cle_valeur<ArrayList<String>>(cle, listVal);
 				list.add(couple);
 				taille = listVal.size(); 
