@@ -19,20 +19,20 @@ public class Gestion_cle_valeur {
 	public int set(String cle, String valeur){
 		int reussi = 0;
 		if(!(cle == null || valeur == null)){
-			// si la clé à déjà été enregistrée avant
+			// si la clé a déja été enregistrée avant
 			if(cleExists(cle)){
 				// on récupère sa position dans la liste
 				int pos = posCle(cle);
 				Cle_valeur tmp = list.get(pos);
-				// on modifie la valeur associée à cette clé dans la liste
+				// on modifie la valeur associée a cette clé dans la liste
 				tmp.setValeur(valeur);
-				// on met à jour la liste
+				// on met a jour la liste
 				list.set(pos, tmp);
 				reussi = 1;
 			}
 			// sinon
 			else{
-				// on crée un nouveau couple (clé, valeur) et on l'ajoute à la liste
+				// on crée un nouveau couple (clé, valeur) et on l'ajoute a la liste
 				Cle_valeur tmp = new Cle_valeur(cle, valeur);
 				list.add(tmp);
 				reussi = 1;
@@ -43,18 +43,18 @@ public class Gestion_cle_valeur {
 	
 	
 	/**
-	 * Fonction permettant d'enregistrer une clé associée à une valeur. 
+	 * Fonction permettant d'enregistrer une clé associée a une valeur. 
 	 * La clé ne doit pas avoir déja été enregistrée.
 	 * @param cle le nom de la clé
-	 * @param valeur la valeur à associer à la clé
+	 * @param valeur la valeur a associer a la clé
 	 * @return 1 si l'enregistrement a pu être fait, 0 sinon
 	 */
 	public int setnx(String cle, String valeur){
 		int reussi = 0;
 		if(!(cle == null || valeur == null)){
-			// si la clé à déjà été enregistrée avant
+			// si la clé a déja été enregistrée avant
 			if(!cleExists(cle)){
-				// on crée un nouveau couple (clé, valeur) et on l'ajoute à la liste
+				// on crée un nouveau couple (clé, valeur) et on l'ajoute a la liste
 				Cle_valeur tmp = new Cle_valeur(cle, valeur);
 				list.add(tmp);
 				reussi = 1;
@@ -65,11 +65,11 @@ public class Gestion_cle_valeur {
 	
 	
 	/**
-	 * Fonction permettant de récupérer la valeur associée à une clé
+	 * Fonction permettant de récupérer la valeur associée a une clé
 	 * La valeur doit être un String
 	 * @param cle le nom de la clé dont on veut récupérer la valeur associée
-	 * @return la valeur associée à la clé
-	 * @throws WrongTypeValueException si la valeur associée à la clé n'est pas une String
+	 * @return la valeur associée a la clé
+	 * @throws WrongTypeValueException si la valeur associée a la clé n'est pas une String
 	 */
 	public String get(String cle) throws WrongTypeValueException{
 		String valeur = null;
@@ -92,7 +92,7 @@ public class Gestion_cle_valeur {
 	/**
 	 * Fonction permettant d'enlever un couple (clé,valeur) de la liste
 	 * @param cle la clé dont on veut enlever le couple
-	 * @return 1 si le couple à bien été enlevé, 0 sinon
+	 * @return 1 si le couple a bien été enlevé, 0 sinon
 	 */
 	public int del(String cle){
 		int reussi = 0;
@@ -107,12 +107,12 @@ public class Gestion_cle_valeur {
 	}
 	
 	/**
-	 * Fonction permettant d'incrémenter la valeur associée à une clé si cette valeur est un entier.
+	 * Fonction permettant d'incrémenter la valeur associée a une clé si cette valeur est un entier.
 	 * Si la clé n'exsiste pas, un nouveau couple (clé,valeur) est crée, avec comme valeur 1.
 	 * @param cle la clé dont on veut d'incrémenter la valeur
-	 * @return la nouvelle valeur associée à la clé
-	 * @throws NumberFormatException si la valeur associée à la clé n'est pas un entier acceptable
-	 * @throws OverFlowException si la valeur associée à la clé ne peut pas être augmentée de 1 sans franchir la valeur maximum pour Integer
+	 * @return la nouvelle valeur associée a la clé
+	 * @throws NumberFormatException si la valeur associée a la clé n'est pas un entier acceptable
+	 * @throws OverFlowException si la valeur associée a la clé ne peut pas être augmentée de 1 sans franchir la valeur maximum pour Integer
 	 */
 	public int incr(String cle) throws NumberFormatException, OverFlowException{
 		int reussi = 0;
@@ -145,14 +145,14 @@ public class Gestion_cle_valeur {
 	}
 	
 	/**
-	 * Fonction permettant d'augmenter la valeur associée à une clé d'un certain entier, si cette valeur est un entier.
+	 * Fonction permettant d'augmenter la valeur associée a une clé d'un certain entier, si cette valeur est un entier.
 	 * Si la clé n'exsiste pas, un nouveau couple (clé,valeur) est crée, avec comme valeur l'entier donné.
 	 * @param cle la clé dont on veut augmenter la valeur
-	 * @param i l'entier duquel on veut augmenter la valeur associée à la clé
-	 * @return la nouvelle valeur associée à la clé
-	 * @throws NumberFormatException si la valeur associée à la clé n'est pas un entier acceptable
-	 * @throws OverFlowException si la valeur associée à la clé ne peut pas être augmentée de i sans franchir la valeur maximum pour Integer
-	 * @throws UnderFlowException si la valeur associée à la clé ne peut pas être augmentée de i (i étant négatif)
+	 * @param i l'entier duquel on veut augmenter la valeur associée a la clé
+	 * @return la nouvelle valeur associée a la clé
+	 * @throws NumberFormatException si la valeur associée a la clé n'est pas un entier acceptable
+	 * @throws OverFlowException si la valeur associée a la clé ne peut pas être augmentée de i sans franchir la valeur maximum pour Integer
+	 * @throws UnderFlowException si la valeur associée a la clé ne peut pas être augmentée de i (i étant négatif)
 	 */
 	public int incrBy(String cle, int i) throws NumberFormatException, OverFlowException, UnderFlowException{
 		int reussi = 0;
@@ -189,12 +189,12 @@ public class Gestion_cle_valeur {
 	
 	
 	/**
-	 * Fonction permettant de décrémenter la valeur associée à une clé si cette valeur est un entier.
+	 * Fonction permettant de décrémenter la valeur associée a une clé si cette valeur est un entier.
 	 * Si la clé n'exsiste pas, un nouveau couple (clé,valeur) est crée, avec comme valeur -1.
 	 * @param cle la clé dont on veut décrémenter la valeur
-	 * @return la nouvelle valeur associée à la clé, ou lève une erreur si la valeur associée à la clé n'est pas un entier
-	 * @throws NumberFormatException si la valeur associée à la clé n'est pas un entier acceptable
-	 * @throws UnderFlowException si la valeur associée à la clé ne peut pas être augmentée de i (i étant négatif)
+	 * @return la nouvelle valeur associée a la clé, ou lève une erreur si la valeur associée a la clé n'est pas un entier
+	 * @throws NumberFormatException si la valeur associée a la clé n'est pas un entier acceptable
+	 * @throws UnderFlowException si la valeur associée a la clé ne peut pas être augmentée de i (i étant négatif)
 	 */
 	public int decr(String cle) throws NumberFormatException, UnderFlowException{
 		int reussi = 0;
@@ -227,14 +227,14 @@ public class Gestion_cle_valeur {
 	}
 	
 	/**
-	 * Fonction permettant de diminuer la valeur associée à une clé  si cette valeur est un entier.
+	 * Fonction permettant de diminuer la valeur associée a une clé  si cette valeur est un entier.
 	 * Si la clé n'exsiste pas, un nouveau couple (clé,valeur) est crée, avec comme valeur -i.
 	 * @param cle la clé dont on veut décrémenter la valeur
-	 * @param i l'entier duquel on veut diminuer la valeur associée à la clé
-	 * @return la nouvelle valeur associée à la clé, ou lève une erreur si la valeur associée à la clé n'est pas un entier
-	 * @throws NumberFormatException si la valeur associée à la clé n'est pas un entier acceptable
-	 * @throws OverFlowException si la valeur associée à la clé ne peut pas être augmentée de i sans franchir la valeur maximum pour Integer
-	 * @throws UnderFlowException si la valeur associée à la clé ne peut pas être augmentée de i (i étant négatif)
+	 * @param i l'entier duquel on veut diminuer la valeur associée a la clé
+	 * @return la nouvelle valeur associée a la clé, ou lève une erreur si la valeur associée a la clé n'est pas un entier
+	 * @throws NumberFormatException si la valeur associée a la clé n'est pas un entier acceptable
+	 * @throws OverFlowException si la valeur associée a la clé ne peut pas être augmentée de i sans franchir la valeur maximum pour Integer
+	 * @throws UnderFlowException si la valeur associée a la clé ne peut pas être augmentée de i (i étant négatif)
 	 */
 	public int decrBy(String cle, int i) throws NumberFormatException, OverFlowException, UnderFlowException{
 		int reussi = 0;
@@ -286,10 +286,10 @@ public class Gestion_cle_valeur {
 	
 	
 	/**
-	 * Fonction permettant de renommer une clé enregistrée
+	 * Fonction permettant de renommer une clﾃ enregistrée
 	 * @param cle la clé que l'on veut renommer
 	 * @param newname le nouveau nom pour la clé
-	 * @return 1 si le renommage à réussi, 0 sinon
+	 * @return 1 si le renommage a réussi, 0 sinon
 	 * @throws SameNameException si l'ancien nom et le nouveau nom de la clé sont identiques
 	 * @throws KeyNotExistsException si la clé n'existe pas
 	 */
@@ -322,7 +322,7 @@ public class Gestion_cle_valeur {
 	 * Fonction permettant de renommer une clé enregistrée si le nouveau nom n'existe pas
 	 * @param cle la clé que l'on veut renommer
 	 * @param newname le nouveau nom pour la clé
-	 * @return 1 si le renommage à réussi, 0 sinon
+	 * @return 1 si le renommage a réussi, 0 sinon
 	 * @throws SameNameException si l'ancien nom et le nouveau nom de la clé sont identiques
 	 * @throws KeyNotExistsException si la clé n'existe pas
 	 */
@@ -451,12 +451,12 @@ public class Gestion_cle_valeur {
 	}
 	
 	/**
-	 * Fonction permettant de retirer et de récupérer le premier élément d'une liste de valeur qui était associée à une clé
-	 * Si la clé existe elle doit être associée à une liste.
+	 * Fonction permettant de retirer et de récupérer le premier élément d'une liste de valeur qui était associée a une clé
+	 * Si la clé existe elle doit être associée a une liste.
 	 * Si la clé n'existe pas la fonction retourne null 
-	 * @param cle la clé qui est associé à la liste dont on veut récupérer, et retirer, le premier élément
-	 * @return le premier élément de la liste associé à la clé
-	 * @throws WrongTypeValueException si la clé n'est n'est pas associé à une liste de valeur
+	 * @param cle la clé qui est associé a la liste dont on veut récupérer, et retirer, le premier élément
+	 * @return le premier élément de la liste associé a la clé
+	 * @throws WrongTypeValueException si la clé n'est n'est pas associé a une liste de valeur
 	 */
 	public String lpop(String cle) throws WrongTypeValueException{
 		String premier_element = null;
@@ -476,12 +476,12 @@ public class Gestion_cle_valeur {
 	}
 	
 	/**
-	 * Fonction permettant de retirer et de récupérer le dernier élément d'une liste de valeur qui était associée à une clé
-	 * Si la clé existe elle doit être associée à une liste.
+	 * Fonction permettant de retirer et de récupérer le dernier élément d'une liste de valeur qui était associée a une clé
+	 * Si la clé existe elle doit être associée a une liste.
 	 * Si la clé n'existe pas la fonction retourne null 
-	 * @param cle la clé qui est associé à la liste dont on veut récupérer, et retirer, le dernier élément
-	 * @return le dernier élément de la liste associé à la clé
-	 * @throws WrongTypeValueException si la clé n'est n'est pas associé à une liste de valeur
+	 * @param cle la clé qui est associé a la liste dont on veut récupérer, et retirer, le dernier élément
+	 * @return le dernier élément de la liste associé a la clé
+	 * @throws WrongTypeValueException si la clé n'est n'est pas associé a une liste de valeur
 	 */
 	public String rpop(String cle) throws WrongTypeValueException{
 		String premier_element = null;
@@ -504,9 +504,9 @@ public class Gestion_cle_valeur {
 	
 	
 	/**
-	 * Fonction permettant de vérifier si une clé à déja été enregistrée
+	 * Fonction permettant de vérifier si une clé a déja été enregistrée
 	 * @param c la clé que l'on veut vérifier l'enregistrement
-	 * @return true si la clé à déja été enregistrée, false sinon
+	 * @return true si la clé a déja été enregistrée, false sinon
 	 */
 	private Boolean cleExists(String c){
 		Boolean result = false;
@@ -516,6 +516,7 @@ public class Gestion_cle_valeur {
 				if(couple.getCle().equals(c)) result = true;
 			}
 		}
+	
 		return result;
 	}
 	
