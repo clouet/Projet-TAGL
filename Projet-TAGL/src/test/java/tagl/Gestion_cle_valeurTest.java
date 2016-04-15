@@ -219,15 +219,6 @@ public class Gestion_cle_valeurTest {
 		gkey.decr("test");
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Test
 	public void testIncrByNotSet() throws NumberFormatException, OverFlowException, UnderFlowException{
 		assertEquals("testIncrByNotSet", 12, gkey.incrBy("test", 12));
@@ -396,14 +387,34 @@ public class Gestion_cle_valeurTest {
 		assertEquals("test testRename", 1, gkey.rename("test", "newname"));
 	}
 	
-/*	@Test 
-	public void testRenamenewnameused() throws SameNameException, KeyNotExistsException{	
+	@Test 
+	public void testRenameNewNameUsed() throws SameNameException, KeyNotExistsException{	
 		gkey.set("test", "valeur");
 		gkey.set("newname", "valeur");
 		assertEquals("test testRename", 0, gkey.rename("test", "newname"));
 	}
-*/	
+
 	
+	@Test (expected = SameNameException.class)
+	public void testRenameSameNameException() throws SameNameException, KeyNotExistsException{
+		gkey.set("test", "valeur");
+		gkey.rename("test", "test");
+	}
+	
+	@Test
+	public void testRenameSupressionOldKey() throws SameNameException, KeyNotExistsException, WrongTypeValueException{
+		gkey.set("test", "valeur1");
+		gkey.set("new", "valeur2");
+		gkey.rename("test","new");
+		assertEquals("testRenameSupressionOldKey", "valeur1", gkey.get("new"));
+	}
+	
+	@Test
+	public void testRenamenx() throws SameNameException, KeyNotExistsException, WrongTypeValueException{
+		gkey.set("test", "valeur1");
+		gkey.renamenx("test", "newname");
+		assertEquals("testRenamenx", "valeur1", gkey.get("newname"));
+	}
 	
 	
 }

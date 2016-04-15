@@ -14,7 +14,11 @@ public class Gestion_cle_valeur {
 	 * Si la clé existait avant, la valeur est mise à jour
 	 * @param cle le nom de la clé
 	 * @param valeur la valeur à associer à la clé
+<<<<<<< HEAD
+	 * @return 1 si l'enregistrement à pu ﾃｪtre fait, 0 sinon
+=======
 	 * @return 1 si l'enregistrement a pu être fait, 0 sinon
+>>>>>>> branch 'master' of https://github.com/clouet/Projet-TAGL
 	 */
 	public int set(String cle, String valeur){
 		int reussi = 0;
