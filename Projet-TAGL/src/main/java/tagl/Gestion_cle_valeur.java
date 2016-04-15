@@ -360,7 +360,7 @@ public class Gestion_cle_valeur {
 	 * @throws WrongTypeValueException si la clé existait et n'était pas associée à une liste
 	 */
 	public int rpush(String cle, ArrayList<String> listVal)throws WrongTypeValueException{
-		int taille = -1;
+		int taille = 0;
 		if(cle != null && listVal != null && !cle.equals("")){
 			if(cleExists(cle)){
 				int pos = posCle(cle);
@@ -395,7 +395,7 @@ public class Gestion_cle_valeur {
 	 * @throws WrongTypeValueException si la clé n'était pas associée à une liste
 	 */
 	public int rpushx(String cle, String val)throws WrongTypeValueException{
-		int taille = -1;
+		int taille = 0;
 		if(cle != null && val != null && !cle.equals("") ){
 			if(cleExists(cle)){
 				int pos = posCle(cle);
@@ -424,7 +424,7 @@ public class Gestion_cle_valeur {
 	 * @throws WrongTypeValueException si la clé existait et n'était pas associée à une liste
 	 */
 	public int lpush(String cle, ArrayList<String> listVal)throws WrongTypeValueException{
-		int taille = -1;
+		int taille = 0;
 		if(cle != null && listVal != null && !cle.equals("")){
 			if(cleExists(cle)){
 				int pos = posCle(cle);
@@ -449,6 +449,35 @@ public class Gestion_cle_valeur {
 		}
 		return taille;
 	}
+	
+	
+	
+	/**
+	 * Fonction permettant d'ajouter une valeur à la gauche (au début) de la liste associée à une clé.
+	 * La clé doit exister
+	 * @param cle la clé à qui ont veut associer les valeurs
+	 * @param val la valeur que l'on veut associer à la clé
+	 * @return la taille de la liste associée à la clé, 0 si la clé n'existait pas
+	 * @throws WrongTypeValueException si la clé existait et n'était pas associée à une liste
+	 */
+	public int lpushx(String cle, String val)throws WrongTypeValueException{
+		int taille = 0;
+		if(cle != null && val != null && !cle.equals("")){
+			if(cleExists(cle)){
+				int pos = posCle(cle);
+				if(list.get(pos).getValeur() instanceof ArrayList){
+					ArrayList<String> tmp = (ArrayList) list.get(pos).getValeur();
+					tmp.add(0, val);
+					taille = tmp.size();
+				}
+				else{
+					throw new WrongTypeValueException();
+				}
+			}
+		}
+		return taille;
+	}
+	
 	
 	/**
 	 * Fonction permettant de retirer et de récupérer le premier élément d'une liste de valeur qui était associée a une clé
