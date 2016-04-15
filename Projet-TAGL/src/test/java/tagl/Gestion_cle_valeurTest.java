@@ -42,7 +42,7 @@ public class Gestion_cle_valeurTest {
 	
 	@Test
 	public void testSetEmptyKey(){		
-		assertEquals("test setnullkey", 1, gkey.set("","2"));
+		assertEquals("test setnullkey", 0, gkey.set("","2"));
 	}
 	@Test
 	public void testSetEmptyVal(){		
@@ -97,7 +97,7 @@ public class Gestion_cle_valeurTest {
 	
 	@Test
 	public void testSetnxEmptyKey(){		
-		assertEquals("test setnxEmptykey", 1, gkey.setnx("","2"));
+		assertEquals("test setnxEmptykey", 0, gkey.setnx("","2"));
 	}
 	@Test
 	public void testSetnxEmptyVal(){		
@@ -140,7 +140,7 @@ public class Gestion_cle_valeurTest {
 	@Test
 	public void testGetEmptyKey(){
 		gkey.set("", "12 virgule 2");
-		assertEquals("testGetEmptyKey", 1, gkey.del(""));
+		assertEquals("testGetEmptyKey", 0, gkey.del(""));
 	}
 	
 	
