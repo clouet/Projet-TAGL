@@ -3,7 +3,10 @@ package tagl;
 import java.util.ArrayList;
 
 public class Gestion_cle_valeur {
-	private final int TAILLE_MAX = 10;
+	/**
+	 * La liste de clé_valeur ne peut contenir que 10 entrées
+	 */
+	public final int TAILLE_MAX = 10;
 	private ArrayList<Cle_valeur> list;
 	
 	public Gestion_cle_valeur(){
@@ -76,7 +79,7 @@ public class Gestion_cle_valeur {
 	 * Fonction permettant de récupérer la valeur associée a une clé
 	 * La valeur doit être un String
 	 * @param cle le nom de la clé dont on veut récupérer la valeur associée
-	 * @return la valeur associée a la clé
+	 * @return la valeur associée a la clé, si la clé n'existe pas retourne null
 	 * @throws WrongTypeValueException si la valeur associée a la clé n'est pas une String
 	 */
 	public String get(String cle) throws WrongTypeValueException{
