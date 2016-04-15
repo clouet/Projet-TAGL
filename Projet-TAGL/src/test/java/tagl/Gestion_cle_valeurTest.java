@@ -46,21 +46,21 @@ public class Gestion_cle_valeurTest {
 		assertEquals("test setnullval", 1, gkey.set("test",""));
 	}
 	@Test
-	public void testGetBadKey() throws ValeurNotStringException{	
+	public void testGetBadKey() throws WrongTypeValueException{	
 		gkey.set("\0test","2");
 		assertEquals("test getbadllkey", "2", gkey.get("\0test"));
 	}
 	@Test
-	public void testGetSet() throws ValeurNotStringException{
+	public void testGetSet() throws WrongTypeValueException{
 		gkey.set("test","3");
 		assertEquals("test getset", "3", gkey.get("test"));
 	}
 	@Test
-	public void testGetUnset() throws ValeurNotStringException{
+	public void testGetUnset() throws WrongTypeValueException{
 		assertEquals("test getunset", null, gkey.get("tomate"));
 	}
 	@Test
-	public void testGetChanged() throws ValeurNotStringException{
+	public void testGetChanged() throws WrongTypeValueException{
 		gkey.set("test","1");
 		gkey.set("test","2");
 		assertEquals("testGetChanged", "2", gkey.get("test"));
@@ -102,13 +102,13 @@ public class Gestion_cle_valeurTest {
 	}
 
 	@Test
-	public void testGetSetnx() throws ValeurNotStringException{
+	public void testGetSetnx() throws WrongTypeValueException{
 		gkey.setnx("test","3");
 		assertEquals("test getset", "3", gkey.get("test"));
 	}
 
 	@Test
-	public void testGetChangedSetnx() throws ValeurNotStringException{
+	public void testGetChangedSetnx() throws WrongTypeValueException{
 		gkey.setnx("test","1");
 		gkey.setnx("test","2");
 		assertEquals("testGetChanged", "1", gkey.get("test"));
@@ -125,7 +125,7 @@ public class Gestion_cle_valeurTest {
 		assertEquals("testDelReturnValueNotSet", 0, gkey.del("test"));
 	}
 	@Test
-	public void testGetDeleted() throws ValeurNotStringException{
+	public void testGetDeleted() throws WrongTypeValueException{
 		gkey.set("test","1");
 		gkey.del("test");
 		assertEquals("testDelReturnValueNormal", null, gkey.get("test"));

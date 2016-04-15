@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class Gestion_cle_valeur {
 	private ArrayList<Cle_valeur> list;
-	//private ArrayList<CleListValeur> listCleList;
-
 	
 	public Gestion_cle_valeur(){
 		if(list == null) list = new ArrayList<>();
@@ -71,9 +69,9 @@ public class Gestion_cle_valeur {
 	 * La valeur doit être un String
 	 * @param cle le nom de la clé dont on veut récupérer la valeur associée
 	 * @return la valeur associée à la clé
-	 * @throws ValeurNotStringException si la valeur associée à la clé n'est pas une String
+	 * @throws WrongTypeValueException si la valeur associée à la clé n'est pas une String
 	 */
-	public String get(String cle) throws ValeurNotStringException{
+	public String get(String cle) throws WrongTypeValueException{
 		String valeur = null;
 		if(!(cle == null)){
 			if(cleExists(cle)){
@@ -83,7 +81,7 @@ public class Gestion_cle_valeur {
 					valeur = String.valueOf(tmp.getValeur());
 				}
 				else{
-					throw new ValeurNotStringException();
+					throw new WrongTypeValueException();
 				}
 			}
 		}
@@ -168,21 +166,21 @@ public class Gestion_cle_valeur {
 				int pos = posCle(cle);
 				Cle_valeur cv = list.get(pos);
 				if(cv.getValeur() instanceof String){
-				String valeur = String.valueOf(cv.getValeur());
-				try{
-					int n = Integer.parseInt(valeur);
-					if(n > 0 && Integer.MAX_VALUE-n <= i){
-						throw new OverFlowException();
+					String valeur = String.valueOf(cv.getValeur());
+					try{
+						int n = Integer.parseInt(valeur);
+						if(n > 0 && Integer.MAX_VALUE-n <= i){
+							throw new OverFlowException();
+						}
+						if(n < 0 && i < 0 && Integer.MIN_VALUE - i >= n){
+							throw new UnderFlowException();
+						}
+						n = n + i;
+						cv.setValeur(String.valueOf(n));
+						reussi = n;
+					}catch(NumberFormatException n){
+						throw n;
 					}
-					if(n < 0 && i < 0 && Integer.MIN_VALUE - i >= n){
-						throw new UnderFlowException();
-					}
-					n = n + i;
-					cv.setValeur(String.valueOf(n));
-					reussi = n;
-				}catch(NumberFormatException n){
-					throw n;
-				}
 				}
 			}
 		}
@@ -283,9 +281,6 @@ public class Gestion_cle_valeur {
 		if(!(cle == null)){
 			if(cleExists(cle)) exist = 1;
 		}
-		else{
-			
-		}
 		return exist;
 	}
 	
@@ -355,9 +350,36 @@ public class Gestion_cle_valeur {
 	}
 	
 	
-	public int rpush(String cle, ArrayList<String> listVal){
-		int taille = 0;
-		
+	/**
+	 * 
+	 * @param cle
+	 * @param listVal
+	 * @return
+	 * @throws WrongTypeValueException
+	 */
+	public int rpush(String cle, ArrayList<String> listVal)throws WrongTypeValueException{
+		int taille = -1;
+		if(cle != null && listVal != null){
+			if(cleExists(cle)){
+				int pos = posCle(cle);
+				if(list.get(pos).getValeur() instanceof ArrayList){
+					ArrayList<String> tmp = (ArrayList) list.get(pos).getValeur();
+					for(int i = 0; i < listVal.size(); i++ ){
+						String val = listVal.get(i);
+						tmp.add(val);
+					}
+					taille = tmp.size();
+				}
+				else{
+					throw new WrongTypeValueException();
+				}
+			}
+			else{
+				Cle_valeur<ArrayList<String>> couple = new Cle_valeur<ArrayList<String>>(cle, listVal);
+				list.add(couple);
+				taille = listVal.size(); 
+			}
+		}
 		return taille;
 	}
 	
@@ -378,22 +400,7 @@ public class Gestion_cle_valeur {
 		return result;
 	}
 	
-	/**
-	 * Fonction permettant de vérifier si une clé à déja été enregistrée en tant que liste
-	 * @param c la clé que l'on veut vérifier l'enregistrement
-	 * @return true si la clé à déja été enregistrée, false sinon
-	 */
-	/*private Boolean cleListExists(String c){
-		Boolean result = false;
-		if(listCleList != null){
-			for(int i = 0; i < listCleList.size(); i++){
-				CleListValeur couple = listCleList.get(i);
-				if(couple.getCle().equals(c)) result = true;
-			}
-		}
-		return result;
-	}
-	*/
+	
 	
 	/**
 	 * Fonction permettant de récupérer la position d'une clé dans la liste d'enregistrement
