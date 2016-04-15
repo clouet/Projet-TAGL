@@ -1,6 +1,9 @@
 package tagl;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -94,7 +97,7 @@ public class Gestion_cle_valeurTest {
 	
 	@Test
 	public void testSetnxEmptyKey(){		
-		assertEquals("test setnxEmptykey", 1, gkey.setnx("","2"));
+		assertEquals("test setnxEmptykey", 0, gkey.setnx("","2"));
 	}
 	@Test
 	public void testSetnxEmptyVal(){		
@@ -137,7 +140,7 @@ public class Gestion_cle_valeurTest {
 	@Test
 	public void testGetEmptyKey(){
 		gkey.set("", "12 virgule 2");
-		assertEquals("testGetEmptyKey", 1, gkey.del(""));
+		assertEquals("testGetEmptyKey", 0, gkey.del(""));
 	}
 	
 	
@@ -395,6 +398,7 @@ public class Gestion_cle_valeurTest {
 	}
 
 	
+
 	@Test (expected = SameNameException.class)
 	public void testRenameSameNameException() throws SameNameException, KeyNotExistsException{
 		gkey.set("test", "valeur");
@@ -438,7 +442,32 @@ public class Gestion_cle_valeurTest {
 	}
 	
 	
+	//Debut des tests sur la gestion de liste de valeurs
+	@Test
+	public void testCreationListWithRpush() throws WrongTypeValueException{
+		ArrayList<String> list2 = new ArrayList<String>();
+		list2.add("value2");
+		assertEquals("testCreationListWithRpush", 1, gkey.rpush("list", list2));
+	}
 	
+	@Test (expected = WrongTypeValueException.class)
+	public void testRpushWrongTypeValueException() throws WrongTypeValueException{
+		gkey.set("list1", "value1");
+		ArrayList<String> list2 = new ArrayList<String>();
+		list2.add("value2");
+		gkey.rpush("list1", list2);
+	}
+	
+	@Test
+	public void testAdditionNewElementRpush() throws WrongTypeValueException{
+		ArrayList<String> list1 = new ArrayList<String>();
+		list1.add("value1");
+		gkey.rpush("liste", list1);
+		ArrayList<String> list2 = new ArrayList<String>();
+		list2.add("value2");
+		list2.add("value3");
+		assertEquals("testAdditionNewElementRpush", 3, gkey.rpush("liste", list2));
+	}
 	
 	
 	

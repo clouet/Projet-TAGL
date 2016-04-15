@@ -51,7 +51,7 @@ public class Gestion_cle_valeur {
 	 */
 	public int setnx(String cle, String valeur){
 		int reussi = 0;
-		if(!(cle == null || valeur == null)){
+		if(!(cle == null || valeur == null || cle.equals(""))){
 			// si la clé a déja été enregistrée avant
 			if(!cleExists(cle)){
 				// on crée un nouveau couple (clé, valeur) et on l'ajoute a la liste
@@ -73,7 +73,7 @@ public class Gestion_cle_valeur {
 	 */
 	public String get(String cle) throws WrongTypeValueException{
 		String valeur = null;
-		if(!(cle == null)){
+		if(!(cle == null || cle.equals(""))){
 			if(cleExists(cle)){
 				int pos = posCle(cle);
 				Cle_valeur tmp = list.get(pos);
@@ -96,7 +96,7 @@ public class Gestion_cle_valeur {
 	 */
 	public int del(String cle){
 		int reussi = 0;
-		if(!(cle == null)){
+		if(!(cle == null || cle.equals(""))){
 			if(cleExists(cle)){
 				int pos = posCle(cle);
 				list.remove(pos);
@@ -116,7 +116,7 @@ public class Gestion_cle_valeur {
 	 */
 	public int incr(String cle) throws NumberFormatException, OverFlowException{
 		int reussi = 0;
-		if(!(cle == null)){
+		if(!(cle == null || cle.equals(""))){
 			if(!cleExists(cle)){
 				Cle_valeur cv = new Cle_valeur(cle, "1");
 				list.add(cv);
@@ -156,7 +156,7 @@ public class Gestion_cle_valeur {
 	 */
 	public int incrBy(String cle, int i) throws NumberFormatException, OverFlowException, UnderFlowException{
 		int reussi = 0;
-		if(!(cle == null)){
+		if(!(cle == null || cle.equals(""))){
 			if(!cleExists(cle)){
 				Cle_valeur cv = new Cle_valeur(cle, String.valueOf(i));
 				list.add(cv);
@@ -198,7 +198,7 @@ public class Gestion_cle_valeur {
 	 */
 	public int decr(String cle) throws NumberFormatException, UnderFlowException{
 		int reussi = 0;
-		if(!(cle == null)){
+		if(!(cle == null || cle.equals(""))){
 			if(!cleExists(cle)){
 				Cle_valeur cv = new Cle_valeur(cle, "-1");
 				list.add(cv);
@@ -278,7 +278,7 @@ public class Gestion_cle_valeur {
 	 */
 	public int exists(String cle){
 		int exist = 0;
-		if(!(cle == null)){
+		if(!(cle == null || cle.equals(""))){
 			if(cleExists(cle)) exist = 1;
 		}
 		return exist;
@@ -295,7 +295,7 @@ public class Gestion_cle_valeur {
 	 */
 	public int rename(String cle, String newname) throws SameNameException, KeyNotExistsException {
 		int reussi = 0;
-		if(!(cle == null || newname == null)){
+		if(!(cle == null || newname == null || cle.equals("") || newname.equals(""))){
 			if (cle.equals(newname)){
 				throw new SameNameException();
 			}
@@ -328,7 +328,7 @@ public class Gestion_cle_valeur {
 	 */
 	public int renamenx(String cle, String newname) throws SameNameException, KeyNotExistsException {
 		int reussi = 0;
-		if(!(cle == null || newname == null)){
+		if(!(cle == null || newname == null || cle.equals("") || newname.equals(""))){
 			if (cle.equals(newname)){
 				throw new SameNameException();
 			}
@@ -361,7 +361,7 @@ public class Gestion_cle_valeur {
 	 */
 	public int rpush(String cle, ArrayList<String> listVal)throws WrongTypeValueException{
 		int taille = -1;
-		if(cle != null && listVal != null){
+		if(cle != null && listVal != null && !cle.equals("")){
 			if(cleExists(cle)){
 				int pos = posCle(cle);
 				if(list.get(pos).getValeur() instanceof ArrayList){
@@ -396,7 +396,7 @@ public class Gestion_cle_valeur {
 	 */
 	public int rpushx(String cle, String val)throws WrongTypeValueException{
 		int taille = -1;
-		if(cle != null && val != null){
+		if(cle != null && val != null && !cle.equals("") ){
 			if(cleExists(cle)){
 				int pos = posCle(cle);
 				if(list.get(pos).getValeur() instanceof ArrayList){
@@ -425,7 +425,7 @@ public class Gestion_cle_valeur {
 	 */
 	public int lpush(String cle, ArrayList<String> listVal)throws WrongTypeValueException{
 		int taille = -1;
-		if(cle != null && listVal != null){
+		if(cle != null && listVal != null && !cle.equals("")){
 			if(cleExists(cle)){
 				int pos = posCle(cle);
 				if(list.get(pos).getValeur() instanceof ArrayList){
@@ -460,7 +460,7 @@ public class Gestion_cle_valeur {
 	 */
 	public String lpop(String cle) throws WrongTypeValueException{
 		String premier_element = null;
-		if(cle != null){
+		if(cle != null && !cle.equals("")){
 			if(cleExists(cle)){
 				int pos = posCle(cle);
 				if(list.get(pos).getValeur() instanceof ArrayList){
@@ -485,7 +485,7 @@ public class Gestion_cle_valeur {
 	 */
 	public String rpop(String cle) throws WrongTypeValueException{
 		String premier_element = null;
-		if(cle != null){
+		if(cle != null && !cle.equals("")){
 			if(cleExists(cle)){
 				int pos = posCle(cle);
 				if(list.get(pos).getValeur() instanceof ArrayList){
@@ -510,7 +510,7 @@ public class Gestion_cle_valeur {
 	 */
 	private Boolean cleExists(String c){
 		Boolean result = false;
-		if(list != null){
+		if(list != null && !c.equals("") && c != null){
 			for(int i = 0; i < list.size(); i++){
 				Cle_valeur couple = list.get(i);
 				if(couple.getCle().equals(c)) result = true;
@@ -530,7 +530,7 @@ public class Gestion_cle_valeur {
 	private int posCle(String c){
 		int pos = -1;
 		Boolean find = false;
-		if(list != null){
+		if(list != null && !c.equals("") && c != null){
 			int i = 0;
 			while (i < list.size() && !find){
 				Cle_valeur couple = list.get(i);
