@@ -39,7 +39,7 @@ public class Gestion_cle_valeurTest {
 	
 	@Test
 	public void testSetEmptyKey(){		
-		assertEquals("test setnullkey", 1, gkey.set("","2"));
+		assertEquals("test setnullkey", 0, gkey.set("","2"));
 	}
 	@Test
 	public void testSetEmptyVal(){		

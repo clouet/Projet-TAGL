@@ -3,12 +3,11 @@ package clientServeur;
 import java.net.*;
 
 import tagl.Gestion_cle_valeur;
-import tagl.WrongTypeValueException;
-
 import java.io.*;
 
 public class Server {
 	Gestion_cle_valeur gkey;
+
 	Server() {
 		gkey = new Gestion_cle_valeur();
 	}
@@ -27,20 +26,50 @@ public class Server {
 					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 					BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));) {
 				String inputLine;
-				
 				while ((inputLine = in.readLine()) != null) {
-					String[] tabs = inputLine.split(" ");
+					String[] t = inputLine.split(" ");
+					String[] tabs = new String[6];
+					for (int i = 0; i < t.length; i++) {
+						tabs[i] = t[i];
+					}
 					try {
-					if (tabs[0].equals("get")) {
-						
+						switch (tabs[0]) {
+						case ("get"):
 							out.println(s.gkey.get(tabs[1]));
-						
-					} else if (tabs[0].equals("set")) {
-						out.println(s.gkey.set(tabs[1],tabs[2]));
-					}  else
-						out.println("il est possible que ça n'ai pas marché");
+							break;
+						case ("set"):
+							if (s.gkey.set(tabs[1], tabs[2]) == 1) {
+								out.println("set reussi");
+							} else {
+								out.println("set non reussi");
+							}
+							break;
+						case ("setnx"):
+							if (s.gkey.setnx(tabs[1], tabs[2]) == 1) {
+								out.println("setnx reussi");
+							} else {
+								out.println("setnx non reussi");
+							}
+							break;
+						case ("del"):
+							if (s.gkey.del(tabs[1]) == 1) {
+								out.println("del reussi");
+							} else {
+								out.println("del non reussi");
+							}
+							break;
+						case ("incr"):
+							out.println(s.gkey.incr(tabs[1]));
+							break;
+						case ("incrby"):
+							out.println(s.gkey.incrBy(tabs[1], Integer.parseInt(tabs[2])));
+							break;
+						default:
+							out.println("il est possible que ça n'ai pas marché");
+							break;
+						}
 					} catch (Exception e) {
-						out.println(e.getMessage());
+						out.println(e.getClass().toString());
 					}
 				}
 			} catch (IOException e) {
