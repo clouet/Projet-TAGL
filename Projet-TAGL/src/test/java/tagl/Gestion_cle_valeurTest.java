@@ -94,7 +94,7 @@ public class Gestion_cle_valeurTest {
 	
 	@Test
 	public void testSetnxEmptyKey(){		
-		assertEquals("test setnxEmptykey", 1, gkey.setnx("","2"));
+		assertEquals("test setnxEmptykey", 0, gkey.setnx("","2"));
 	}
 	@Test
 	public void testSetnxEmptyVal(){		
