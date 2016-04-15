@@ -389,6 +389,43 @@ public class Gestion_cle_valeur {
 		return taille;
 	}
 	
+	
+	/**
+	 * Fonction permettant d'ajouter une valeur à la droite (fin) de la liste associée à une clé.
+	 * La clé doit exister
+	 * @param cle la clé à qui ont veut associer la valeur
+	 * @param listVal l'ensemble des valeurs que l'on veut associer à la clé
+	 * @return la taille de la liste associée à la clé
+	 * @throws WrongTypeValueException si la clé existait est n'était pas associée à une liste
+	 */
+	public int rpushx(String cle, ArrayList<String> listVal)throws WrongTypeValueException{
+		int taille = -1;
+		if(cle != null && listVal != null){
+			if(cleExists(cle)){
+				int pos = posCle(cle);
+				if(list.get(pos).getValeur() instanceof ArrayList){
+					ArrayList<String> tmp = (ArrayList) list.get(pos).getValeur();
+					for(int i = 0; i < listVal.size(); i++ ){
+						String val = listVal.get(i);
+						tmp.add(val);
+					}
+					taille = tmp.size();
+				}
+				else{
+					throw new WrongTypeValueException();
+				}
+			}
+			else{
+				Cle_valeur<ArrayList<String>> couple = new Cle_valeur<ArrayList<String>>(cle, listVal);
+				list.add(couple);
+				taille = listVal.size(); 
+			}
+		}
+		return taille;
+	}
+	
+	
+	
 	/**
 	 * Fonction permettant d'ajouter une ou plusieurs valeurs ﾃ� la gauche (au dﾃｩbut) de la liste associﾃｩe ﾃ� une clﾃｩ.
 	 * Si la clﾃｩ existait alors il faut qu'elle soit dﾃｩjﾃ� associﾃｩe ﾃ� une liste de valeur.
