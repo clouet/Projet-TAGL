@@ -41,21 +41,21 @@ public class Server {
 							if (s.gkey.set(tabs[1], tabs[2]) == 1) {
 								out.println("set reussi");
 							} else {
-								out.println("set non reussi");
+								out.println("set echoué");
 							}
 							break;
 						case ("setnx"):
 							if (s.gkey.setnx(tabs[1], tabs[2]) == 1) {
 								out.println("setnx reussi");
 							} else {
-								out.println("setnx non reussi");
+								out.println("setnx echoué");
 							}
 							break;
 						case ("del"):
 							if (s.gkey.del(tabs[1]) == 1) {
 								out.println("del reussi");
 							} else {
-								out.println("del non reussi");
+								out.println("del echoué");
 							}
 							break;
 						case ("incr"):
@@ -63,6 +63,33 @@ public class Server {
 							break;
 						case ("incrby"):
 							out.println(s.gkey.incrBy(tabs[1], Integer.parseInt(tabs[2])));
+							break;
+						case ("decr"):
+							out.println(s.gkey.decr(tabs[1]));
+							break;
+						case ("decrby"):
+							out.println(s.gkey.decrBy(tabs[1], Integer.parseInt(tabs[2])));
+							break;
+						case ("exists"):
+							if (s.gkey.exists(tabs[1]) == 1) {
+								out.println("la clé existe");
+							} else {
+								out.println("la clé n'existe pas");
+							}
+							break;
+						case ("rename"):
+							if (s.gkey.rename(tabs[1],tabs[2]) == 1) {
+								out.println("rename reussi");
+							} else {
+								out.println("rename echoué");
+							}
+							break;
+						case ("renamenx"):
+							if (s.gkey.renamenx(tabs[1],tabs[2]) == 1) {
+								out.println("renamenx reussi");
+							} else {
+								out.println("renamenx echoué");
+							}
 							break;
 						default:
 							out.println("il est possible que ça n'ai pas marché");
