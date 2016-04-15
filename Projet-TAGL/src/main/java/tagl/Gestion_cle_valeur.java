@@ -385,6 +385,93 @@ public class Gestion_cle_valeur {
 		return taille;
 	}
 	
+	/**
+	 * Fonction permettant d'ajouter une ou plusieurs valeurs à la gauche (au début) de la liste associée à une clé.
+	 * Si la clé existait alors il faut qu'elle soit déjà associée à une liste de valeur.
+	 * Si la clé n'existait pas alors une nouvelle clée est ajoutée, et elle est associée aux valeurs donnée en paramètres
+	 * @param cle la clé à qui ont veut associer les valeurs
+	 * @param listVal l'ensemble des valeurs que l'on veut associer à la clé
+	 * @return la taille de la liste associée à la clé
+	 * @throws WrongTypeValueException si la clé existait est n'était pas associée à une liste
+	 */
+	public int lpush(String cle, ArrayList<String> listVal)throws WrongTypeValueException{
+		int taille = -1;
+		if(cle != null && listVal != null){
+			if(cleExists(cle)){
+				int pos = posCle(cle);
+				if(list.get(pos).getValeur() instanceof ArrayList){
+					ArrayList<String> tmp = (ArrayList) list.get(pos).getValeur();
+					for(int i = 0; i < listVal.size(); i++ ){
+						String val = listVal.get(i);
+						tmp.add(0,val);
+					}
+					taille = tmp.size();
+				}
+				else{
+					throw new WrongTypeValueException();
+				}
+			}
+			else{
+				Cle_valeur<ArrayList<String>> couple = new Cle_valeur<ArrayList<String>>(cle, listVal);
+				list.add(couple);
+				taille = listVal.size(); 
+			}
+		}
+		return taille;
+	}
+	
+	/**
+	 * Fonction permettant de retirer et de récupérer le premier élément d'une liste de valeur qui était associée à une clé
+	 * Si la clé existe elle doit être associée à une liste.
+	 * Si la clé n'existe pas la fonction retourne null 
+	 * @param cle la clé qui est associé à la liste dont on veut récupérer, et retirer, le premier élément
+	 * @return le premier élément de la liste associé à la clé
+	 * @throws WrongTypeValueException si la clé n'est n'est pas associé à une liste de valeur
+	 */
+	public String lpop(String cle) throws WrongTypeValueException{
+		String premier_element = null;
+		if(cle != null){
+			if(cleExists(cle)){
+				int pos = posCle(cle);
+				if(list.get(pos).getValeur() instanceof ArrayList){
+					ArrayList<String> liste_valeur = (ArrayList) list.get(pos).getValeur();
+					premier_element = liste_valeur.remove(0);
+				}
+				else{
+					throw new WrongTypeValueException();
+				}
+			}
+		}
+		return premier_element;
+	}
+	
+	/**
+	 * Fonction permettant de retirer et de récupérer le dernier élément d'une liste de valeur qui était associée à une clé
+	 * Si la clé existe elle doit être associée à une liste.
+	 * Si la clé n'existe pas la fonction retourne null 
+	 * @param cle la clé qui est associé à la liste dont on veut récupérer, et retirer, le dernier élément
+	 * @return le dernier élément de la liste associé à la clé
+	 * @throws WrongTypeValueException si la clé n'est n'est pas associé à une liste de valeur
+	 */
+	public String rpop(String cle) throws WrongTypeValueException{
+		String premier_element = null;
+		if(cle != null){
+			if(cleExists(cle)){
+				int pos = posCle(cle);
+				if(list.get(pos).getValeur() instanceof ArrayList){
+					ArrayList<String> liste_valeur = (ArrayList) list.get(pos).getValeur();
+					premier_element = liste_valeur.remove(liste_valeur.size()-1);
+				}
+				else{
+					throw new WrongTypeValueException();
+				}
+			}
+		}
+		return premier_element;
+	}
+	
+	
+	
 	
 	/**
 	 * Fonction permettant de vérifier si une clé à déja été enregistrée
