@@ -401,6 +401,20 @@ public class Gestion_cle_valeurTest {
 		gkey.rename("test", "test");
 	}
 	
+	@Test
+	public void testRenameSupressionOldKey() throws SameNameException, KeyNotExistsException, WrongTypeValueException{
+		gkey.set("test", "valeur1");
+		gkey.set("new", "valeur2");
+		gkey.rename("test","new");
+		assertEquals("testRenameSupressionOldKey", "valeur1", gkey.get("new"));
+	}
+	
+	@Test
+	public void testRenamenx() throws SameNameException, KeyNotExistsException, WrongTypeValueException{
+		gkey.set("test", "valeur1");
+		gkey.renamenx("test", "newname");
+		assertEquals("testRenamenx", "valeur1", gkey.get("newname"));
+	}
 	
 	
 }
