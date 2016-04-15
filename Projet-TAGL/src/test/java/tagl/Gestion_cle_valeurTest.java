@@ -409,6 +409,7 @@ public class Gestion_cle_valeurTest {
 		assertEquals("testRenameSupressionOldKey", "valeur1", gkey.get("new"));
 	}
 	
+	
 	@Test
 	public void testRenamenx() throws SameNameException, KeyNotExistsException, WrongTypeValueException{
 		gkey.set("test", "valeur1");
