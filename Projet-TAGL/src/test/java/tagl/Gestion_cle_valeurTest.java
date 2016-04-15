@@ -470,7 +470,7 @@ public class Gestion_cle_valeurTest {
 	}
 	
 	@Test
-	public void testCreationListLpush(){
+	public void testCreationListLpush() throws WrongTypeValueException{
 		ArrayList<String> list1 = new ArrayList<String>();
 		list1.add("value1");
 		assertEquals("testCreationListLpush", 1, gkey.lpush("list", list1));
@@ -486,9 +486,7 @@ public class Gestion_cle_valeurTest {
 	
 	@Test
 	public void testRpushxKeyNotExists() throws WrongTypeValueException{
-		ArrayList<String> list2 = new ArrayList<String>();
-		list2.add("value2");
-		assertEquals("testRpushxKeyNotExists", 0, gkey.rpushx("test", list2));
+		assertEquals("testRpushxKeyNotExists", 0, gkey.rpushx("test", "value2"));
 	}
 	
 	@Test
@@ -496,9 +494,7 @@ public class Gestion_cle_valeurTest {
 		ArrayList<String> list1 = new ArrayList<String>();
 		list1.add("value1");
 		gkey.rpush("test", list1);
-		ArrayList<String> list2 = new ArrayList<String>();
-		list2.add("value2");
-		assertEquals("testRpushxKeyExists", 2, gkey.rpushx("test",list2));
+		assertEquals("testRpushxKeyExists", 2, gkey.rpushx("test","value2"));
 	}
 	
 	@Test
@@ -506,10 +502,10 @@ public class Gestion_cle_valeurTest {
 		ArrayList<String> list1 = new ArrayList<String>();
 		list1.add("value1");
 		gkey.rpush("test", list1);
-		assertEquals("testRpop", "value1", gkey.rpop("test"))
+		assertEquals("testRpop", "value1", gkey.rpop("test"));
 	}
 	
-	@Test (expected = WrongTypeValueException)
+	@Test (expected = WrongTypeValueException.class)
 	public void testRpopWrongTypeValue() throws WrongTypeValueException{
 		gkey.set("list1", "value1");
 		gkey.rpop("list1");
