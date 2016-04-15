@@ -351,11 +351,13 @@ public class Gestion_cle_valeur {
 	
 	
 	/**
-	 * 
-	 * @param cle
-	 * @param listVal
-	 * @return
-	 * @throws WrongTypeValueException
+	 * Fonction permettant d'ajouter une ou plusieurs valeurs à la droite (fin) de la liste associée à une clé.
+	 * Si la clé existait alors il faut qu'elle soit déjà associée à une liste de valeur.
+	 * Si la clé n'existait pas alors une nouvelle clée est ajoutée, et elle est associée aux valeurs donnée en paramètres
+	 * @param cle la clé à qui ont veut associer les valeurs
+	 * @param listVal l'ensemble des valeurs que l'on veut associer à la clé
+	 * @return la taille de la liste associée à la clé
+	 * @throws WrongTypeValueException si la clé existait est n'était pas associée à une liste
 	 */
 	public int rpush(String cle, ArrayList<String> listVal)throws WrongTypeValueException{
 		int taille = -1;
