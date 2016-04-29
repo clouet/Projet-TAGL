@@ -595,7 +595,7 @@ public class Gestion_cle_valeurTest {
 	}
 	
 	
-	//Tests pour la gestion de la mémoire limitée
+	//Tests pour la gestion de la memoire limitee
 	
 	@Test
 	public void testTailleMax() throws WrongTypeValueException{
@@ -697,5 +697,20 @@ public class Gestion_cle_valeurTest {
 		}
 		assertEquals("testTailleMaxList", null, gkey.rpop("test"));
 	}
+	
+	@Test
+	public void testTailleMaxMultipleLists() throws WrongTypeValueException{
+		ArrayList<String> list1 = new ArrayList<String>();
+		list1.add("value1");
+		gkey.rpush("test", list1);
+		for(int i = 0; i <= Gestion_cle_valeur.TAILLE_MAX; i++){
+			list1 = new ArrayList<String>();
+			list1.add("value");
+			gkey.rpush(String.valueOf(i), list1);
+		}
+		assertEquals("testTailleMaxMultipleLists", null, gkey.rpop("test"));
+	}
+	
+	
 
 }
