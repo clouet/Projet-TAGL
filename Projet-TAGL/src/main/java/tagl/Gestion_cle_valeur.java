@@ -566,10 +566,11 @@ public class Gestion_cle_valeur {
 	}
 	
 	/**
-	 * 
-	 * @param cle
-	 * @param valeurs
-	 * @return
+     * Fonction permettant d'enregistrer une clé associée à un ensemble de valeur; ces valeurs étant des String avec un score. 
+	 * Si la clé existait avant, l'ensemble des valeur est remplacé par le nouvel ensemble	 
+	 * @param cle la clé dont on veut associer l'ensemble de valeur
+	 * @param valeurs l'ensemble des valeurs que l'on veut associer à la clé
+	 * @return 1 si la mise à jour a été effectuée, 0 sinon
 	 */
 	public int hmSet(String cle, ArrayList<ListScore> valeurs){
 		int reussi = 0;
