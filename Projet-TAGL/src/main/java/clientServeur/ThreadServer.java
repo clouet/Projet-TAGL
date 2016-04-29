@@ -1,6 +1,5 @@
 package clientServeur;
 
-import java.awt.List;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,7 +7,6 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,18 +15,16 @@ import tagl.Gestion_cle_valeur;
 public class ThreadServer implements Runnable {
 	Gestion_cle_valeur gkey;
 	int portnumber;
-
 	public ThreadServer(Gestion_cle_valeur g, int p) {
 		gkey = g;
 		portnumber = p;
 	}
-
+	@SuppressWarnings("static-access")
 	@Override
 	public void run() {
 		System.out.println("nouveau thread, port : " + portnumber);
 		while (true) {
 			Server s = new Server();
-
 			try (ServerSocket serverSocket = new ServerSocket(portnumber);
 					Socket clientSocket = serverSocket.accept();
 					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -36,10 +32,11 @@ public class ThreadServer implements Runnable {
 				String inputLine;
 				while ((inputLine = in.readLine()) != null) {
 					System.out.println("message recu sur " + portnumber + " : " + inputLine);
-
 					String[] tabs = new String[16];
-
-					ArrayList list = new ArrayList<String>();
+					for(int i=0;i<15;i++){
+						tabs[i]="";
+					}
+					ArrayList<String> list = new ArrayList<String>();
 					Matcher m = Pattern.compile("([^\"]\\S*|\".+?\")\\s*").matcher(inputLine);
 					while (m.find()) {
 						list.add(m.group(1));
@@ -119,16 +116,13 @@ public class ThreadServer implements Runnable {
 								for (int i = 2; i < list.size(); i++) {
 									a.add(tabs[i]);
 								}
-
 								out.println(s.gkey.lpush(tabs[1], a));
 								break;
 							case ("rpush"):
 								ArrayList<String> b = new ArrayList<>();
-
 								for (int i = 2; i < list.size(); i++) {
 									b.add(tabs[i]);
 								}
-
 								out.println(s.gkey.rpush(tabs[1], b));
 								break;
 							case ("rpushx"):

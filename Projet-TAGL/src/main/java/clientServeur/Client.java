@@ -70,6 +70,7 @@ public class Client {
 			System.out.println("got a port : "+port );
 			while (!gotit) {
 			try  {
+				@SuppressWarnings("resource")
 				Socket echoSocket2 = new Socket(hostName, port);
 				PrintWriter out = new PrintWriter(echoSocket2.getOutputStream(), true);
 				BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket2.getInputStream()));
