@@ -679,6 +679,11 @@ public class Gestion_cle_valeurTest {
 		assertEquals("testTailleMax", String.valueOf(-Gestion_cle_valeur.TAILLE_MAX), gkey.get("a"));
 	}
 	
+	/**
+	 * Ce test verifie le fonctionnement de la gestion de la taille maximale lorsque l'on a des listes et des
+	 * cles simples.
+	 * @throws WrongTypeValueException
+	 */
 	@Test
 	public void testTailleMaxList() throws WrongTypeValueException{
 		ArrayList<String> list1 = new ArrayList<String>();
@@ -691,6 +696,11 @@ public class Gestion_cle_valeurTest {
 		assertEquals("testTailleMaxList", null, gkey.rpop("test"));
 	}
 	
+	/**
+	 * Ce test verifie le fonctionnement de la gestion de la taille maximale lorsque l'on utilise uniquement
+	 * des listes.
+	 * @throws WrongTypeValueException
+	 */
 	@Test
 	public void testTailleMaxMultipleLists() throws WrongTypeValueException{
 		ArrayList<String> list1 = new ArrayList<String>();
@@ -703,6 +713,7 @@ public class Gestion_cle_valeurTest {
 		}
 		assertEquals("testTailleMaxMultipleLists", null, gkey.rpop("test"));
 	}
+	
 	
 	
 
