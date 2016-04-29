@@ -570,7 +570,7 @@ public class Gestion_cle_valeur {
 	 * Si la clé existait avant, l'ensemble des valeur est remplacé par le nouvel ensemble	 
 	 * @param cle la clé dont on veut associer l'ensemble de valeur
 	 * @param valeurs l'ensemble des valeurs que l'on veut associer à la clé
-	 * @return 1 si la mise à jour a été effectuée, 0 sinon
+	 * @return le nombre d'elements ajoutes
 	 */
 	public int zAdd(String cle, ArrayList<ListScore> valeurs){
 		int reussi = 0;
@@ -584,7 +584,7 @@ public class Gestion_cle_valeur {
 							list.remove(pos);
 							Cle_valeur<ArrayList<ListScore>> couple = new Cle_valeur<ArrayList<ListScore>> (cle, valeurs);
 							list.add(couple);
-							reussi = 1;
+							reussi = valeurs.size();
 						}
 						
 					}
@@ -595,7 +595,7 @@ public class Gestion_cle_valeur {
 					}
 					Cle_valeur<ArrayList<ListScore>> couple = new Cle_valeur<ArrayList<ListScore>> (cle, valeurs);
 					list.add(couple);
-					reussi = 1;
+					reussi = valeurs.size();
 				}
 			}
 		}
