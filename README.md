@@ -27,7 +27,7 @@ La parallelisation est operationel. quand un client se connecte, un numero de po
 Les tests sont dans la classe Projet-TAGL/src/test/java/tagl/Gestion_cle_valeurTest.java. 
 Realises avec JUnit, ils testent toutes les fonctionnalites de Gestion_cle_valeur.java pour les couples cle-valeur simples
 et pour ceux qui sont des listes. Nous avons aussi teste le systeme de gestion de taille maximale de la memoire par effacement des plus anciens couples cle-valeurs lorsque l'on atteint la limite du nombre de couples autorises.
-
+De plus, nous testons la gestion de listes avec scores (creation et verification du tri automatique par ordre de score decroissant).
 
 ---------------------------------------------------
 //Test Client/Serveur:
