@@ -714,7 +714,44 @@ public class Gestion_cle_valeurTest {
 		assertEquals("testTailleMaxMultipleLists", null, gkey.rpop("test"));
 	}
 	
+	//Tests pour la structure de donnees avec des scores associes aux elements des listes
 	
+	@Test
+	public void testzAddListScoresSuccess(){
+		ListScore test = new ListScore(1,"value");
+		ArrayList<ListScore> list = new ArrayList<ListScore>();
+		list.add(test);
+		int result = gkey.zAdd("cle", list);
+		assertEquals("testzAddListScoresSuccess", 1, result);
+	}
 	
+	@Test
+	public void testzAddListScoresFailure(){
+		int result = gkey.zAdd("cle", null);
+		assertEquals("testzAddListScoresFailure", 0, result);
+	}
+	
+	@Test
+	public void testzAddTwoValues(){
+		ListScore test = new ListScore(1,"value");
+		ListScore test2 = new ListScore(2,"value2");
+		ArrayList<ListScore> list = new ArrayList<ListScore>();
+		list.add(test);
+		list.add(test2);
+		int result = gkey.zAdd("cle", list);
+		assertEquals("testzAddTwoValues", 2, result);
+	}
+	
+	@Test
+	public void testzGet(){
+		ListScore test = new ListScore(1,"value");
+		ListScore test2 = new ListScore(2, "value2");
+		ArrayList<ListScore> list = new ArrayList<ListScore>();
+		list.add(test);
+		list.add(test2);
+		int result = gkey.zAdd("cle", list);
+		ArrayList<String> listResult = gkey.zGet("cle");
+		assertEquals("testzGet", "value2", listResult.get(1));
+	}
 
 }
