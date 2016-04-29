@@ -582,7 +582,7 @@ public class Gestion_cle_valeur {
 							list.remove(pos);
 							Cle_valeur<ArrayList<ListScore>> couple = new Cle_valeur<ArrayList<ListScore>> (cle, valeurs);
 							list.add(couple);
-							reussi = couple.getValeur().size();
+							reussi = valeurs.size();
 						}						
 					}
 				}
@@ -592,41 +592,11 @@ public class Gestion_cle_valeur {
 					}
 					Cle_valeur<ArrayList<ListScore>> couple = new Cle_valeur<ArrayList<ListScore>> (cle, valeurs);
 					list.add(couple);
-					reussi = couple.getValeur().size();
+					reussi = valeurs.size();
 				}
 			}
 		}
 		return reussi;
-	}
-	
-	/**
-     * Fonction permettant de récupérer les valeurs associées à une clé
-     * Ces valeurs étant des String avec un score. 
-	 * @param cle la clé dont on veut associer l'ensemble de valeur
-	 * @return les valeurs associées à la clé. Juste les Strings dans l'ordre enregistré.
-	 */
-	public ArrayList<String> zGet(String cle){
-		ArrayList<String> res = null;
-		if(cle !=null){
-			if(!cle.equals("")){
-				if(cleExists(cle)){
-					int pos = posCle(cle);
-					if(list.get(pos).getValeur() instanceof ArrayList){
-						ArrayList<Object> list_val = (ArrayList)list.get(pos).getValeur();
-						if(list_val.get(0) instanceof ListScore){
-							res = new ArrayList<>();
-							Cle_valeur<ArrayList<ListScore>> couple = list.get(pos);					
-							list.remove(pos);
-							list.add(couple);
-							for(int i = 0; i < couple.getValeur().size(); i++){
-								res.add(couple.getValeur().get(i).getString());
-							}
-						}						
-					}
-				}
-			}
-		}
-		return res;
 	}
 	
 	
@@ -670,18 +640,6 @@ public class Gestion_cle_valeur {
 			pos = i;
 		}
 		return pos;
-	}
-	
-	private ArrayList<ListScore> triScore(ArrayList<ListScore> listScore){
-		ArrayList<ListScore> res = new ArrayList<>();
-		if(res.size() == 0){
-			res.add(listScore.get(0));
-		}
-		int i = 1;
-		while(i < listScore.size()){
-			
-		}
-		return res;
 	}
 
 	
