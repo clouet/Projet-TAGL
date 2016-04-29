@@ -572,7 +572,7 @@ public class Gestion_cle_valeur {
 	 * @param valeurs l'ensemble des valeurs que l'on veut associer à la clé
 	 * @return 1 si la mise à jour a été effectuée, 0 sinon
 	 */
-	public int hmSet(String cle, ArrayList<ListScore> valeurs){
+	public int zAdd(String cle, ArrayList<ListScore> valeurs){
 		int reussi = 0;
 		if(cle !=null && valeurs != null){
 			if(!cle.equals("")){
@@ -601,6 +601,9 @@ public class Gestion_cle_valeur {
 		}
 		return reussi;
 	}
+	
+	
+	
 	
 	
 	/**
