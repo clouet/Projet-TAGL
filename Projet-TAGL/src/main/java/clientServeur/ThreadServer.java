@@ -1,5 +1,6 @@
 package clientServeur;
 
+import java.awt.List;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,6 +8,9 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import tagl.Gestion_cle_valeur;
 
@@ -32,10 +36,16 @@ public class ThreadServer implements Runnable {
 				String inputLine;
 				while ((inputLine = in.readLine()) != null) {
 					System.out.println("message recu sur " + portnumber + " : " + inputLine);
-					String[] t = inputLine.split(" ");
+
 					String[] tabs = new String[16];
-					for (int i = 0; i < t.length; i++) {
-						tabs[i] = t[i];
+
+					ArrayList list = new ArrayList<String>();
+					Matcher m = Pattern.compile("([^\"]\\S*|\".+?\")\\s*").matcher(inputLine);
+					while (m.find()) {
+						list.add(m.group(1));
+					}
+					for (int i = 0; i < list.size(); i++) {
+						tabs[i] = (String) list.get(i);
 					}
 					try {
 						synchronized (gkey) {
@@ -105,21 +115,25 @@ public class ThreadServer implements Runnable {
 								break;
 							case ("lpush"):
 								ArrayList<String> a = new ArrayList<>();
-								for (int i = 2; i < t.length; i++) {
+
+								for (int i = 2; i < list.size(); i++) {
 									a.add(tabs[i]);
 								}
+
 								out.println(s.gkey.lpush(tabs[1], a));
 								break;
 							case ("rpush"):
 								ArrayList<String> b = new ArrayList<>();
-								for (int i = 2; i < t.length; i++) {
+
+								for (int i = 2; i < list.size(); i++) {
 									b.add(tabs[i]);
 								}
+
 								out.println(s.gkey.rpush(tabs[1], b));
 								break;
 							case ("rpushx"):
 								out.println(s.gkey.rpushx(tabs[1], tabs[2]));
-								break;	
+								break;
 							default:
 								out.println("il est possible que ça n'ai pas marché");
 								break;
