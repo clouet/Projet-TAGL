@@ -751,7 +751,7 @@ public class Gestion_cle_valeurTest {
 		list.add(test2);
 		int result = gkey.zAdd("cle", list);
 		ArrayList<String> listResult = gkey.zGet("cle");
-		assertEquals("testzGet", "value2", listResult.get(1));
+		assertEquals("testzGet", "value2", listResult.get(0));
 	}
 	
 	/**
@@ -766,10 +766,9 @@ public class Gestion_cle_valeurTest {
 		list.add(test);
 		list.add(test4);
 		list.add(test2);
-		
 		int result = gkey.zAdd("cle", list);
 		ArrayList<String> listResult = gkey.zGet("cle");
-		assertEquals("testzGet", "value4", listResult.get(2));
+		assertEquals("testzGet", "value", listResult.get(2));
 
 	}
 
