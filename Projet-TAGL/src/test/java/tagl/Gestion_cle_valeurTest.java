@@ -78,13 +78,6 @@ public class Gestion_cle_valeurTest {
 		assertEquals("testsetnxnoSet", 1, gkey.setnx("test", "2"));
 	}
 	
-	
-	
-	
-	
-	
-	
-
 
 	@Test
 	public void testSetnxNullKey(){		
