@@ -582,7 +582,7 @@ public class Gestion_cle_valeur {
 							list.remove(pos);
 							Cle_valeur<ArrayList<ListScore>> couple = new Cle_valeur<ArrayList<ListScore>> (cle, valeurs);
 							list.add(couple);
-							reussi = valeurs.size();
+							reussi = couple.getValeur().size();
 						}						
 					}
 				}
@@ -592,7 +592,7 @@ public class Gestion_cle_valeur {
 					}
 					Cle_valeur<ArrayList<ListScore>> couple = new Cle_valeur<ArrayList<ListScore>> (cle, valeurs);
 					list.add(couple);
-					reussi = valeurs.size();
+					reussi = couple.getValeur().size();
 				}
 			}
 		}
@@ -618,7 +618,7 @@ public class Gestion_cle_valeur {
 							list.remove(pos);
 							list.add(couple);
 							for(int i = 0; i < couple.getValeur().size(); i++){
-								res.add(couple.getValeur().get(i).getValeur());
+								res.add(couple.getValeur().get(i).getString());
 							}
 						}						
 					}

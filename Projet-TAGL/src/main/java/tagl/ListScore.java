@@ -15,10 +15,10 @@ public class ListScore {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	public String getValeur() {
+	public String getString() {
 		return valeur;
 	}
-	public void setValeur(String valeur) {
+	public void setString(String valeur) {
 		this.valeur = valeur;
 	}
 	
