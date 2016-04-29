@@ -83,6 +83,8 @@ public class Client {
 	                out.println(userInput);
 	                System.out.println("resultat: " +in.readLine());
 	            }
+	            
+	          
 	        } catch (UnknownHostException e) {
 	            System.err.println("Don't know about host " + hostName);
 	          //  System.exit(1);

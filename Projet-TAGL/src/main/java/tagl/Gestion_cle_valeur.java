@@ -2,8 +2,6 @@ package tagl;
 
 import java.util.ArrayList;
 
-import sun.misc.Cleaner;
-
 public class Gestion_cle_valeur {
 	/**
 	 * La liste de clé_valeur ne peut contenir que 10 entrées

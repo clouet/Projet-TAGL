@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import tagl.Gestion_cle_valeur;
 
@@ -20,84 +21,109 @@ public class ThreadServer implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("nouveau thread, port : "+portnumber);
+		System.out.println("nouveau thread, port : " + portnumber);
 		while (true) {
 			Server s = new Server();
-			
+
 			try (ServerSocket serverSocket = new ServerSocket(portnumber);
 					Socket clientSocket = serverSocket.accept();
 					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 					BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));) {
 				String inputLine;
 				while ((inputLine = in.readLine()) != null) {
-					System.out.println("message recu sur "+portnumber+ " : "+ inputLine);
+					System.out.println("message recu sur " + portnumber + " : " + inputLine);
 					String[] t = inputLine.split(" ");
-					String[] tabs = new String[6];
+					String[] tabs = new String[16];
 					for (int i = 0; i < t.length; i++) {
 						tabs[i] = t[i];
 					}
 					try {
-						switch (tabs[0]) {
-						case ("get"):
-							out.println(s.gkey.get(tabs[1]));
-							break;
-						case ("set"):
-							if (s.gkey.set(tabs[1], tabs[2]) == 1) {
-								out.println("set reussi");
-							} else {
-								out.println("set echoué");
+						synchronized (gkey) {
+							switch (tabs[0]) {
+							case ("get"):
+								out.println(s.gkey.get(tabs[1]));
+								break;
+							case ("set"):
+								if (s.gkey.set(tabs[1], tabs[2]) == 1) {
+									out.println("set reussi");
+								} else {
+									out.println("set echoué");
+								}
+								break;
+							case ("setnx"):
+								if (s.gkey.setnx(tabs[1], tabs[2]) == 1) {
+									out.println("setnx reussi");
+								} else {
+									out.println("setnx echoué");
+								}
+								break;
+							case ("del"):
+								if (s.gkey.del(tabs[1]) == 1) {
+									out.println("del reussi");
+								} else {
+									out.println("del echoué");
+								}
+								break;
+							case ("incr"):
+								out.println(s.gkey.incr(tabs[1]));
+								break;
+							case ("incrby"):
+								out.println(s.gkey.incrBy(tabs[1], Integer.parseInt(tabs[2])));
+								break;
+							case ("decr"):
+								out.println(s.gkey.decr(tabs[1]));
+								break;
+							case ("decrby"):
+								out.println(s.gkey.decrBy(tabs[1], Integer.parseInt(tabs[2])));
+								break;
+							case ("exists"):
+								if (s.gkey.exists(tabs[1]) == 1) {
+									out.println("la clé existe");
+								} else {
+									out.println("la clé n'existe pas");
+								}
+								break;
+							case ("rename"):
+								if (s.gkey.rename(tabs[1], tabs[2]) == 1) {
+									out.println("rename reussi");
+								} else {
+									out.println("rename echoué");
+								}
+								break;
+							case ("renamenx"):
+								if (s.gkey.renamenx(tabs[1], tabs[2]) == 1) {
+									out.println("renamenx reussi");
+								} else {
+									out.println("renamenx echoué");
+								}
+								break;
+							case ("lpop"):
+								out.println(s.gkey.lpop(tabs[1]));
+								break;
+							case ("rpop"):
+								out.println(s.gkey.rpop(tabs[1]));
+								break;
+							case ("lpush"):
+								ArrayList<String> a = new ArrayList<>();
+								for (int i = 2; i < t.length; i++) {
+									a.add(tabs[i]);
+								}
+								out.println(s.gkey.lpush(tabs[1], a));
+								break;
+							case ("rpush"):
+								ArrayList<String> b = new ArrayList<>();
+								for (int i = 2; i < t.length; i++) {
+									b.add(tabs[i]);
+								}
+								out.println(s.gkey.rpush(tabs[1], b));
+								break;
+							case ("rpushx"):
+								out.println(s.gkey.rpushx(tabs[1], tabs[2]));
+								break;	
+							default:
+								out.println("il est possible que ça n'ai pas marché");
+								break;
 							}
-							break;
-						case ("setnx"):
-							if (s.gkey.setnx(tabs[1], tabs[2]) == 1) {
-								out.println("setnx reussi");
-							} else {
-								out.println("setnx echoué");
-							}
-							break;
-						case ("del"):
-							if (s.gkey.del(tabs[1]) == 1) {
-								out.println("del reussi");
-							} else {
-								out.println("del echoué");
-							}
-							break;
-						case ("incr"):
-							out.println(s.gkey.incr(tabs[1]));
-							break;
-						case ("incrby"):
-							out.println(s.gkey.incrBy(tabs[1], Integer.parseInt(tabs[2])));
-							break;
-						case ("decr"):
-							out.println(s.gkey.decr(tabs[1]));
-							break;
-						case ("decrby"):
-							out.println(s.gkey.decrBy(tabs[1], Integer.parseInt(tabs[2])));
-							break;
-						case ("exists"):
-							if (s.gkey.exists(tabs[1]) == 1) {
-								out.println("la clé existe");
-							} else {
-								out.println("la clé n'existe pas");
-							}
-							break;
-						case ("rename"):
-							if (s.gkey.rename(tabs[1], tabs[2]) == 1) {
-								out.println("rename reussi");
-							} else {
-								out.println("rename echoué");
-							}
-							break;
-						case ("renamenx"):
-							if (s.gkey.renamenx(tabs[1], tabs[2]) == 1) {
-								out.println("renamenx reussi");
-							} else {
-								out.println("renamenx echoué");
-							}
-							break;
-						default:
-							out.println("il est possible que ça n'ai pas marché");
-							break;
 						}
 					} catch (Exception e) {
 						out.println(e.getClass().toString());
