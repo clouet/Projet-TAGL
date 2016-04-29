@@ -615,7 +615,7 @@ public class Gestion_cle_valeur {
 						ArrayList<Object> list_val = (ArrayList)list.get(pos).getValeur();
 						if(list_val.get(0) instanceof ListScore){
 							Cle_valeur<ArrayList<ListScore>> couple = list.get(pos);							list.remove(pos);
-							list.remove(pos);
+							list.remove(list.get(pos));
 							list.add(couple);
 							for(int i = 0; i < couple.getValeur().size(); i++){
 								res.add(couple.getValeur().get(i).getValeur());
@@ -669,6 +669,18 @@ public class Gestion_cle_valeur {
 			pos = i;
 		}
 		return pos;
+	}
+	
+	private ArrayList<ListScore> triScore(ArrayList<ListScore> listScore){
+		ArrayList<ListScore> res = new ArrayList<>();
+		if(res.size() == 0){
+			res.add(listScore.get(0));
+		}
+		int i = 1;
+		while(i < listScore.size()){
+			
+		}
+		return res;
 	}
 
 	
