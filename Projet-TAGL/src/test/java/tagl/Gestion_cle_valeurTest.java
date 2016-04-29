@@ -753,5 +753,24 @@ public class Gestion_cle_valeurTest {
 		ArrayList<String> listResult = gkey.zGet("cle");
 		assertEquals("testzGet", "value2", listResult.get(1));
 	}
+	
+	/**
+	 * Ce test verifie que le tri par ordre croissant des scores sur les listes fonctionne.
+	 */
+	@Test
+	public void testzGetSort(){
+		ListScore test = new ListScore(1,"value");
+		ListScore test4 = new ListScore(4, "value4");
+		ListScore test2 = new ListScore(2, "value2");
+		ArrayList<ListScore> list = new ArrayList<ListScore>();
+		list.add(test);
+		list.add(test4);
+		list.add(test2);
+		
+		int result = gkey.zAdd("cle", list);
+		ArrayList<String> listResult = gkey.zGet("cle");
+		assertEquals("testzGet", "value4", listResult.get(2));
+
+	}
 
 }
