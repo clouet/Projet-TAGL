@@ -617,8 +617,10 @@ public class Gestion_cle_valeur {
 							Cle_valeur<ArrayList<ListScore>> couple = list.get(pos);					
 							list.remove(pos);
 							list.add(couple);
-							for(int i = 0; i < couple.getValeur().size(); i++){
-								res.add(couple.getValeur().get(i).getString());
+							if(couple != null && couple.getValeur() != null ){
+								for(int i = 0; i < couple.getValeur().size(); i++){
+									res.add(couple.getValeur().get(i).getString());
+								}
 							}
 						}						
 					}
