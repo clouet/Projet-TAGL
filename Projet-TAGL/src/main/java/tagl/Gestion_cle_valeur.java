@@ -1,6 +1,8 @@
 package tagl;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Gestion_cle_valeur {
 	/**
@@ -580,6 +582,7 @@ public class Gestion_cle_valeur {
 						ArrayList<Object> list_val = (ArrayList)list.get(pos).getValeur();
 						if(list_val.get(0) instanceof ListScore){
 							list.remove(pos);
+							Collections.sort(valeurs);
 							Cle_valeur<ArrayList<ListScore>> couple = new Cle_valeur<ArrayList<ListScore>> (cle, valeurs);
 							list.add(couple);
 							reussi = couple.getValeur().size();
@@ -590,6 +593,7 @@ public class Gestion_cle_valeur {
 					if(list.size() == TAILLE_MAX){
 						list.remove(0);
 					}
+					Collections.sort(valeurs);
 					Cle_valeur<ArrayList<ListScore>> couple = new Cle_valeur<ArrayList<ListScore>> (cle, valeurs);
 					list.add(couple);
 					reussi = couple.getValeur().size();
@@ -672,17 +676,6 @@ public class Gestion_cle_valeur {
 		return pos;
 	}
 	
-	private ArrayList<ListScore> triScore(ArrayList<ListScore> listScore){
-		ArrayList<ListScore> res = new ArrayList<>();
-		if(res.size() == 0){
-			res.add(listScore.get(0));
-		}
-		int i = 1;
-		while(i < listScore.size()){
-			
-		}
-		return res;
-	}
-
+	
 	
 }
