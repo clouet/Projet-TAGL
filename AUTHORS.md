@@ -1,4 +1,4 @@
+Julien ARMAND
 Jordan BOUCHER
 Arthur CANONNE
-Myriam  CLOUET
-Julien ARMAND
+Myriam CLOUET
