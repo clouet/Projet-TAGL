@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import tagl.Gestion_cle_valeur;
+import tagl.ListScore;
 
 public class ThreadServer implements Runnable {
 	Gestion_cle_valeur gkey;
@@ -128,6 +129,16 @@ public class ThreadServer implements Runnable {
 							case ("rpushx"):
 								out.println(s.gkey.rpushx(tabs[1], tabs[2]));
 								break;
+							case ("zadd"):
+								ArrayList<ListScore> c = new ArrayList<>();
+							for (int i = 2; i < list.size()-1; i+=2) {
+								c.add(new ListScore(Integer.parseInt(tabs[i]),tabs[i+1]));
+							}
+								out.println(s.gkey.zAdd(tabs[1], c));
+								break;
+							case ("zget"):
+								out.println(s.gkey.zGet(tabs[1]));
+								break;	
 							default:
 								out.println("il est possible que ça n'ai pas marché");
 								break;
