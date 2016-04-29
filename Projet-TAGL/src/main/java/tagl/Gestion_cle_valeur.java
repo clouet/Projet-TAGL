@@ -2,6 +2,8 @@ package tagl;
 
 import java.util.ArrayList;
 
+import sun.misc.Cleaner;
+
 public class Gestion_cle_valeur {
 	/**
 	 * La liste de clé_valeur ne peut contenir que 10 entrées
@@ -257,35 +259,6 @@ public class Gestion_cle_valeur {
 	 */
 	public int decrBy(String cle, int i) throws NumberFormatException, OverFlowException, UnderFlowException{
 		int reussi = 0;
-		/*if(!(cle == null)){
-			if(!cleExists(cle)){
-				String val = String.valueOf(-i);
-				Cle_valeur cv = new Cle_valeur(cle, val);
-				list.add(cv);
-				reussi = -i;
-			}
-			else{
-				int pos = posCle(cle);
-				Cle_valeur cv = list.get(pos);
-				String valeur = cv.getValeur();
-				try{
-					int n = Integer.parseInt(valeur);
-					if(Integer.MAX_VALUE - n <= -i){
-						throw new OverFlowException();
-					}
-					if(n - Integer.MIN_VALUE <= i){
-						throw new UnderFlowException();
-					}
-					n = n - i;
-					cv.setValeur(String.valueOf(n));
-					reussi = n;
-				}catch(NumberFormatException n){
-					throw n;
-				}
-			}
-			
-		}
-		*/
 		reussi = incrBy(cle, -i);
 		return reussi;
 	}
@@ -592,7 +565,39 @@ public class Gestion_cle_valeur {
 		return premier_element;
 	}
 	
-	
+	/**
+	 * 
+	 * @param cle
+	 * @param valeurs
+	 * @return
+	 */
+	public int hmSet(String cle, ArrayList<ListScore> valeurs){
+		int reussi = 0;
+		if(cle !=null && valeurs != null){
+			if(!cle.equals("")){
+				if(cleExists(cle)){
+					int pos = posCle(cle);
+					if(list.get(pos).getValeur() instanceof ArrayList){
+						ArrayList<Object> list_val = (ArrayList)list.get(pos).getValeur();
+						if(list_val.get(0) instanceof ListScore){
+							list.remove(pos);
+							Cle_valeur<ArrayList<ListScore>> couple = new Cle_valeur<ArrayList<ListScore>> (cle, valeurs);
+							list.add(couple);
+						}
+						
+					}
+				}
+				else{
+					if(list.size() == TAILLE_MAX){
+						list.remove(0);
+					}
+					Cle_valeur<ArrayList<ListScore>> couple = new Cle_valeur<ArrayList<ListScore>> (cle, valeurs);
+					list.add(couple);
+				}
+			}
+		}
+		return reussi;
+	}
 	
 	
 	/**
@@ -633,6 +638,6 @@ public class Gestion_cle_valeur {
 		}
 		return pos;
 	}
-	
+
 	
 }
