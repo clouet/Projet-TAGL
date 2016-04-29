@@ -614,8 +614,8 @@ public class Gestion_cle_valeur {
 					if(list.get(pos).getValeur() instanceof ArrayList){
 						ArrayList<Object> list_val = (ArrayList)list.get(pos).getValeur();
 						if(list_val.get(0) instanceof ListScore){
-							Cle_valeur<ArrayList<ListScore>> couple = list.get(pos);							list.remove(pos);
-							list.remove(list.get(pos));
+							Cle_valeur<ArrayList<ListScore>> couple = list.get(pos);					
+							list.remove(pos);
 							list.add(couple);
 							for(int i = 0; i < couple.getValeur().size(); i++){
 								res.add(couple.getValeur().get(i).getValeur());
