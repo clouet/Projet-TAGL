@@ -311,7 +311,7 @@ public class Gestion_cle_valeur {
 	
 	
 	/**
-	 * Fonction permettant de renommer une clﾃ enregistrée
+	 * Fonction permettant de renommer une cle enregistrée
 	 * @param cle la clé que l'on veut renommer
 	 * @param newname le nouveau nom pour la clé
 	 * @return 1 si le renommage a réussi, 0 sinon
