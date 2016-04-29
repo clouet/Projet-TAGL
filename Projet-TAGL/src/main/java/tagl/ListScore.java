@@ -26,10 +26,9 @@ public class ListScore implements Comparable {
 		int res = 0;
 		// TODO Auto-generated method stub
 		ListScore tmp = (ListScore)arg0;
-		if(tmp.getScore() < score) res =-1;
-		if(tmp.getScore() > score) res = 1;
-		
-		return 0;
+		if(tmp.getScore() < this.score) res = -1;
+		if(tmp.getScore() > this.score) res = 1;
+		return res;
 	}
 	
 

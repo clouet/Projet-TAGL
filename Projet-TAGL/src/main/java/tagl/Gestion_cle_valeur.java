@@ -567,7 +567,8 @@ public class Gestion_cle_valeur {
 	
 	/**
      * Fonction permettant d'enregistrer une clé associée à un ensemble de valeur; ces valeurs étant des String avec un score. 
-	 * Si la clé existait avant, l'ensemble des valeur est remplacé par le nouvel ensemble	 
+	 * Si la clé existait avant, l'ensemble des valeur est remplacé par le nouvel ensemble
+	 * Les valeurs sont triées par leur score (dans l'ordre décroissant) 	 
 	 * @param cle la clé dont on veut associer l'ensemble de valeur
 	 * @param valeurs l'ensemble des valeurs que l'on veut associer à la clé
 	 * @return le nombre d'elements ajoutes
@@ -606,6 +607,7 @@ public class Gestion_cle_valeur {
 	/**
      * Fonction permettant de récupérer les valeurs associées à une clé
      * Ces valeurs étant des String avec un score. 
+     * Les valeurs sont triées par leur score (dans l'ordre décroissant) 	 
 	 * @param cle la clé dont on veut associer l'ensemble de valeur
 	 * @return les valeurs associées à la clé. Juste les Strings dans l'ordre enregistré.
 	 */
