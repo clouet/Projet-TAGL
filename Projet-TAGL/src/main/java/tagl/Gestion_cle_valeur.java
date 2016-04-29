@@ -585,8 +585,7 @@ public class Gestion_cle_valeur {
 							Cle_valeur<ArrayList<ListScore>> couple = new Cle_valeur<ArrayList<ListScore>> (cle, valeurs);
 							list.add(couple);
 							reussi = valeurs.size();
-						}
-						
+						}						
 					}
 				}
 				else{
